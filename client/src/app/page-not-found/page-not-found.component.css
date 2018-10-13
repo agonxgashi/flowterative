@@ -1,0 +1,18 @@
+h1{
+    margin: 15vh auto 5vh auto;
+    font-size: 900% !important;
+    font-family: 'Playball' !important;
+    text-align: center; 
+    /* color: #5A6169; */
+}
+p{
+    margin: 0 auto;
+    text-align: center;
+    color: #212529;
+}
+
+span{
+    margin: 0 auto;
+    display: inline-block !important;
+    text-align: center;
+}

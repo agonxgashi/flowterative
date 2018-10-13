@@ -1,0 +1,10 @@
+
+
+<!-- THIS IS JUST A TEST COMPONENT -->
+<button class="btn btn-success" (click)="setV()" > Set Value </button>
+<button class="btn btn-danger" (click)="removeV()"> Remove Value </button>
+
+<br>
+<label> Value: {{val | json}} </label>
+<br>
+<label *ngIf="val" > LocalSotrage has value! </label>

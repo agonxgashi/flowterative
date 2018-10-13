@@ -1,0 +1,12 @@
+<div class="col-md-12">
+    <div *ngFor="let post of blogposts_list">
+        <div class="card-body">
+          <h4 class="card-title">{{post.Title}}</h4>
+          <div [innerHTML]="post.Content | safe: 'html'" ></div>
+          <a href="#" class="btn btn-primary">Tell me more &rarr;</a>
+        </div>
+      </div>
+</div>
+
+
+

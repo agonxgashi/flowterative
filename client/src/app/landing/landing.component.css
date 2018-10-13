@@ -1,0 +1,4 @@
+.login-container{
+    min-height: calc(100vh - 44.8px);
+    border-bottom: 5px solid #007bff;
+}

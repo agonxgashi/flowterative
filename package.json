@@ -1,0 +1,34 @@
+{
+  "name": "flowterative",
+  "version": "1.0.0",
+  "description": "Web-based project management application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agonxgashi/flowterative.git"
+  },
+  "keywords": [
+    "kanban",
+    "management",
+    "application"
+  ],
+  "author": "Agon Gashi <agonxgashi@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/agonxgashi/flowterative/issues"
+  },
+  "homepage": "https://github.com/agonxgashi/flowterative#readme",
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "http": "0.0.0",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.0.14",
+    "path": "^0.12.7"
+  }
+}

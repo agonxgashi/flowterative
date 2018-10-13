@@ -1,0 +1,40 @@
+<div class="row m-0">
+  <div class="col-md-12 p-0 m-0">
+    <nav class="navbar bg-primary fixed-top py-1">
+      <button type="button" data-micron="tada" (click)="navigateToHomepage()" class="btn text-light brand btn-primary btn-sm btn-disabled">
+        flowterative
+      </button>
+
+        <i *ngIf="isLoading" class="text-light fa fa-spin fa-spinner "></i>
+
+      <span>
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="dropdown">
+          <span *ngIf="usr"> @{{ usr.Username }} </span>
+          <i class="fa fa-bars pl-2"></i>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right mr-3" aria-labelledby="user-nav-dropdown">
+          <a class="px-5 dropdown-item text-secondary clickable" *ngIf="usr" >
+            <i class="fa fa-user pr-3"></i> Profile</a>
+          <a class="px-5 dropdown-item text-secondary clickable" *ngIf="usr" >
+            <i class="fa fa-cog pr-3"></i> Settings</a>
+
+          <div class="dropdown-divider" *ngIf="usr" ></div>
+          <a class="px-5 dropdown-item text-secondary clickable" (click)="useLanguage('al')">
+            <i class="fa fa-globe pr-3"></i> AL - Shqip</a>
+          <a class="px-5 dropdown-item text-secondary clickable" (click)="useLanguage('en')">
+            <i class="fa fa-globe pr-3"></i> EN - English</a>
+
+          <div class="dropdown-divider"></div>
+          <a class="px-5 dropdown-item text-danger clickable" *ngIf="usr" (click)="logOut()">
+            <i class="fa fa-sign-out pr-3"></i> Log Out</a>
+
+          <div class="dropdown-divider"></div>
+          <a class="px-5 dropdown-item text-secondary clickable" routerLink="/help">
+            <i class="fa fa-question pr-3"></i> Help</a>
+          <a class="px-5 dropdown-item text-secondary clickable" routerLink="/blog" *ngIf="usr" >
+            <i class="fa fa-rss pr-3"></i> Blog</a>
+        </div>
+      </span>
+    </nav>
+  </div>
+</div>

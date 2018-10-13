@@ -1,0 +1,68 @@
+/* You can add global styles to this file, and also import other style files */
+a, label, p, b,
+h1, h2, h3, h4, h5, h6,
+pre
+{
+    font-family: 'Maven Pro', 'Open Sans', sans-serif !important;
+}
+
+b{
+    font-weight: 900;
+}
+
+.brand{
+    font-family: 'Playball' !important;
+}
+
+.clickable{
+    cursor: pointer;
+    text-decoration: none !important;
+}
+
+.clickable-link:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.noPadding{
+    padding: 0 !important;
+}
+
+.noMargin{
+    margin: 0 !important;
+}
+
+.clear{
+    clear: both;
+}
+
+
+[data-tool-tip] {
+    position: relative;
+  }
+  
+  [data-tool-tip]::after {
+    content: attr(data-tool-tip);
+    display: inline-block;
+    position: absolute;
+    background-color: #fff;;
+    padding: 15px 20px;
+    color: #5a6169;
+    border-radius: .5rem;
+    font-size: .875rem;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    white-space: nowrap;
+    transform: scale(0);
+    transition:
+      transform ease-out 150ms,
+      bottom ease-out 150ms;
+    z-index: 1060;
+    box-shadow: 0 3px 15px rgba(90,97,105,.1),0 2px 3px rgba(90,97,105,.2);
+  }
+  
+  [data-tool-tip]:hover::after {
+    transform: scale(1);
+    bottom: 100%;
+  }

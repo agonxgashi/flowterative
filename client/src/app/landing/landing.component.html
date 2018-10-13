@@ -1,0 +1,100 @@
+<div class="row d-flex justify-content-center login-container m-0">
+  <div class="col-md-3 p-5 mt-5 ">
+
+    <h1 class="text-center text-primary brand"> flowterative </h1>
+    <p class="text-center text-muted"> Manage your workflow easily.</p>
+    <br>
+    <br>
+    <label>{{'AUTH.Username' | translate}}: </label>
+    <div class="input-group input-group-seamless">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <i *ngIf="userToLog.Username" class="fa fa-user text-primary"></i>
+          <i *ngIf="!userToLog.Username" class="fa fa-user"></i>
+        </div>
+      </div>
+      <input autocomplete="off" [(ngModel)]="userToLog.Username" (keyup.enter)="login()" type="text" class="form-control dark" placeholder="{{'AUTH.Username' | translate}}">
+    </div>
+    <br>
+    <label>{{'AUTH.Password' | translate}}: </label>
+    <div class="input-group input-group-seamless">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <i *ngIf="userToLog.Password" class="fa fa-lock text-primary"></i>
+          <i *ngIf="!userToLog.Password" class="fa fa-lock"></i>
+        </div>
+      </div>
+      <input type="password" [(ngModel)]="userToLog.Password" (keyup.enter)="login()" autocomplete="false" class="form-control" placeholder="{{'AUTH.Password' | translate}}">    
+    </div>
+    <br>
+    <div *ngIf="loginResponse && (!loginResponse.success)" class="col-md-12 pt-0 pb-2">
+        <label class="text-center text-danger col-md-12"> {{ 'RESPONSE.' + loginResponse?.message | translate}} </label>
+    </div>
+    <button [disabled]="!(userToLog.Username && userToLog.Password)" class="btn btn-primary btn-block" routerLinkActive="router-link-active"
+      (click)="login()"> {{'AUTH.LOGIN' | translate}} 
+    </button>
+    <p class="block text-center pt-2 clickable-link"  data-toggle="modal" data-target="#registerModal"> {{'LBL.REGISTER_HERE' | translate}} </p>
+  </div>
+</div>
+
+<div class="row d-flex justify-content-middle m-0 h-70 py-5 px-0">
+  <div class="container text-center my-5">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam error labore quaerat autem eligendi odit aspernatur, beatae
+    deleniti dolorum aut doloremque? Inventore ipsam, aliquam eligendi quod harum adipisci assumenda aperiam!
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="needs-validation">
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="validationCustom01">{{'AUTH.Name' | translate}}</label>
+                <input type="text" class="form-control" [(ngModel)]="userToRegister.Name">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="validationCustom02">{{'AUTH.Surname' | translate}}</label>
+                <input type="text" class="form-control" [(ngModel)]="userToRegister.Surname">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label for="validationCustom03">{{'AUTH.Email' | translate}}</label>
+                <input type="email" class="form-control" [(ngModel)]="userToRegister.Email">
+              </div>
+            </div>
+
+
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label for="validationCustom03">{{'AUTH.Username' | translate}}</label>
+                <input type="text" class="form-control" [(ngModel)]="userToRegister.Username">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label for="validationCustom03">{{'AUTH.Password' | translate}}</label>
+                <input type="password" class="form-control" [(ngModel)]="userToRegister.Password">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary col-md-6" data-dismiss="modal">{{'GENERAL.Cancel' | translate}}</button>
+        <button type="button" class="btn btn-success col-md-6" data-dismiss="modal" (click)="register()">{{'AUTH.SIGNUP' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

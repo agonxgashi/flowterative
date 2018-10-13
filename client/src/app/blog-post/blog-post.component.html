@@ -1,0 +1,18 @@
+<div class="row p-2 m-0">
+  <div class="col-md-6">
+    <div class="form-group">
+      <input type="text" class="form-control" [(ngModel)]="blog_post.title" placeholder="Title">
+    </div>
+    <quill-editor [(ngModel)]="blog_post.content" [modules]="editorOptions"></quill-editor>
+    <br>
+    <button class="btn btn-block btn-primary" (click)="post()" > POST <i class="fa fa-paper-plane-o"></i>  </button>
+  </div>
+  <div class="col-md-6 pr-2" >
+      <p class="text-center text-muted" *ngIf="!(blog_post.content || blog_post.title)" > Write something and preview is going to show here... </p>
+    <h2> {{ blog_post.title }} </h2>
+    <hr  *ngIf="blog_post.content && blog_post.title">
+    <div class="col-md-12 p-0" *ngIf="blog_post.content" [innerHTML]="blog_post.content | safe: 'html'">
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="col-md-6 offset-md-3 p-5">
+  <div class="row p-0 m-0">
+    <div class="col-md-8 pl-0 py-3">
+      <input type="text" [(ngModel)]="search" placeholder="{{'GENERAL.Search' | translate}}" class="form-control">
+    </div>
+    <div class="col-md-4 pr-0 py-3">
+      <button class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#newProject">
+        <i class="fa fa-plus pr-3" aria-hidden="true"></i> {{'BOARD.CreateNew' | translate}} </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-md-10 offset-md-1">
+  <h3 class="text-secondary">{{'BOARD.MyBoards' | translate}}</h3>
+  <hr>
+  <div class="row">
+    <div class="col-md-3 p-2" *ngFor="let b of boardList">
+      <a [routerLink]="['/boards', b._id]" class="d-inline-block col-md-12 p-3 bg-{{b.Color}} rounded clickable">
+        <h5 class="mb-1 text-light"> {{ b.Name | truncate:40 }} </h5>
+        <br>
+        <label class="badge badge-sm badge-{{b.Color}}  pull-right"> {{ b.Members.length }} {{'BOARD.Members' | translate}}</label>
+      </a>
+    </div>
+  </div>
+</div> 
+
+
+<!-- CREATE NEW BOARD MODAL -->
+<div class="modal fade" id="newProject" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body py-5">
+        <div class="container-fluid">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-8">
+                  <label for=""> {{ 'BOARD.Name' | translate }} </label>
+                  <input type="text" [(ngModel)]="boardToCreate.Name" class="form-control">
+              </div>
+              <div class="col-md-4">
+                  <label for=""> {{ 'BOARD.Color' | translate }} </label>
+                  <select class="custom-select">
+                    <option value="primary">{{'COLOR.Blue' | translate}}</option>
+                    <option value="danger">{{'COLOR.Red' | translate}}</option>
+                    <option value="success">{{'COLOR.Green' | translate}}</option>
+                    <option value="warning">{{'COLOR.Yellow' | translate}}</option>
+                  </select>
+              </div>
+            </div>
+            
+            <br>
+            <label for=""> {{ 'BOARD.Description' | translate }} </label>
+            <textarea [(ngModel)]="boardToCreate.Description" class="form-control" cols="30" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer m-0">
+        <button type="button" class="btn btn-secondary col-md-6" data-dismiss="modal">
+          <i class="fa fa-ban pr-2"></i>
+          {{'GENERAL.Cancel' | translate}}
+        </button>
+        <button type="button" data-dismiss="modal" (click)="createBoard()" class="btn btn-primary col-md-6">
+          <i class="fa fa-save pr-2"></i>
+          {{'GENERAL.Save' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
