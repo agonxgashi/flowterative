@@ -9,6 +9,7 @@ const BoardSchema = new Schema({
     Admins: { type: [mongoose.Schema.Types.ObjectId] },
     Members: { type: [mongoose.Schema.Types.ObjectId] },
     Color: { type: String, default: 'primary' },
+    Backlog: ListSchema,
     Lists: [ListSchema],
     CreateDate: { type: Date, default: Date.now() },
     CreatedBy: mongoose.Schema.Types.ObjectId

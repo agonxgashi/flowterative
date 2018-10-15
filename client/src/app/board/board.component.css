@@ -9,6 +9,7 @@
 
 .list-content {
   max-height: calc(100vh - 45px - 47px - 47px - 47px - 45px);
+  min-height: 10vh;
   overflow-y: auto;
 } 
 
@@ -16,3 +17,33 @@
   width: 0 !important;
   border: 2px solid red;
 }
+
+.sidenav {
+    position: fixed;
+    z-index: 1;
+    top: 45.2px;
+    left: 0;
+    bottom: 0;
+    overflow-x: hidden;
+    right: -17px;
+    
+}
+
+
+.sidenav .list-group li{
+  cursor: pointer;
+  background-color: #212529;
+}
+
+.sidenav .list-group li:hover{
+  background-color: #16181b;
+}
+
+.sidenav .list-group li span{
+  color: #e9ecef;
+}
+
+
+.btn_registerNewRoute{
+  border: 1px solid #16181b;
+} 

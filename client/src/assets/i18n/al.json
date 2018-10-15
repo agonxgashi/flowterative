@@ -2,7 +2,8 @@
     "GENERAL": {
         "Search": "Kërko",
         "Cancel": "Ndërprej",
-        "Save": "Ruaj"
+        "Save": "Ruaj",
+        "Back": "Prapa"
     },
     "RESPONSE": {
         "ERR_INVALID_CREDENTIALS" : "Kredenciale të gabuara!",
@@ -28,7 +29,14 @@
         "Description": "Përshkrimi i Projektit",
         "CreateNew": "Krijo Projekt të Ri",
         "Members": "antarë",
-        "Color": "Ngjyra"
+        "Color": "Ngjyra",
+        "Settings": "Rregullimet e projektit"
+    },
+    "TASK":{
+        "New": "Detyre e re"
+    },
+    "LIST":{
+        "CreateNew": "Shto listë të re"
     },
     "COLOR": {
         "Red": "Kuq",

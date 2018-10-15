@@ -28,6 +28,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { DragScrollModule } from 'ngx-drag-scroll';
+import { A2Edatetimepicker } from 'ng2-eonasdan-datetimepicker';
 
 // Variables
 import { appRoutes } from './../routes';
@@ -68,6 +69,7 @@ import { LoadingManager } from '../services/UI/loading.service';
       }
     }),
     FormsModule,
+    A2Edatetimepicker,
     DragulaModule,
     QuillModule,
     DragScrollModule

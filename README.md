@@ -9,6 +9,16 @@ Whether you’re maintaining a personal todo list, planning your holidays with s
 
 
 ## How to run the project:
+First thing you have to do is to create a file with necessary configurations to connect with database. Do do this, navigate to ``./server/config`` folder and create a file named ``dbConfig.json``. On this file paste below values:
+
+```json
+  {
+      "MongoConStr": "<<your_connection_string_here>>"
+  }
+```
+
+Replace `<<your_connection_string_here>>` with your connection string for mongo database and you should be good to continue.
+
 You need to perform below steps to start the appliaction:
   - Go to /client directory and install packages using ```npm isntall```
   - Build Angular app using ```ng build``` command

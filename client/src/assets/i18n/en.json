@@ -2,7 +2,8 @@
     "GENERAL": {
         "Search": "Search",
         "Cancel": "Cancel",
-        "Save": "Save"
+        "Save": "Save",
+        "Back": "Back"
     },
     "RESPONSE": {
         "ERR_INVALID_CREDENTIALS" : "Invalid credentials!",
@@ -29,7 +30,14 @@
         "Description": "Board Description",
         "CreateNew": "Create New Board",
         "Members": "members",
-        "Color": "Color"
+        "Color": "Color",
+        "Settings": "Board Settings"
+    },
+    "TASK":{
+        "New": "New Task"
+    },
+    "LIST":{
+        "CreateNew": "Create new list"
     },
     "COLOR": {
         "Red": "Red",

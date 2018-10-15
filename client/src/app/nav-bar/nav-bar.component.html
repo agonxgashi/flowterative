@@ -15,6 +15,8 @@
         <div class="dropdown-menu dropdown-menu-right mr-3" aria-labelledby="user-nav-dropdown">
           <a class="px-5 dropdown-item text-secondary clickable" *ngIf="usr" >
             <i class="fa fa-user pr-3"></i> Profile</a>
+          <a class="px-5 dropdown-item text-secondary clickable" routerLink="/boards" *ngIf="usr" >
+            <i class="fa fa-tasks pr-3"></i> Boards</a>
           <a class="px-5 dropdown-item text-secondary clickable" *ngIf="usr" >
             <i class="fa fa-cog pr-3"></i> Settings</a>
 

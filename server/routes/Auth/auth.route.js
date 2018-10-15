@@ -36,7 +36,7 @@ router.post('/login', function (req, res) {
                         Username: _username
                       }
                     var token = jwt.sign(payload, server_config.jwt.secret, {
-                        expiresIn: 1440
+                        expiresIn: 86400 // 24 hours
                       });
                       res.status(200).send(new ReturnObj(true, "MSG_SUCCESS_LOGIN", 200, token));
                 } else {

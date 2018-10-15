@@ -22,6 +22,7 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
               "node_modules/webkul-micron/dist/css/micron.min.css",
               "node_modules/dragula/dist/dragula.min.css",
               "node_modules/shards-ui/dist/css/shards.min.css",
@@ -36,7 +37,9 @@
               "node_modules/webkul-micron/dist/script/micron.min.js",
               "node_modules/ngx-quill/bundles/ngx-quill.umd.js",
               "node_modules/quill/dist/quill.js",
-              "node_modules/shards-ui/dist/js/shards.min.js"
+              "node_modules/shards-ui/dist/js/shards.min.js",
+              "node_modules/moment/min/moment.min.js",
+              "node_modules/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"
             ]
           },
           "configurations": {

@@ -64,3 +64,4 @@ typings/
 config/dbConfig.json
 config/serverConfig.json
 server/config/dbConfig.json
+client/package-lock.json
