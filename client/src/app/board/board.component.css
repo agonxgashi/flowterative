@@ -32,11 +32,11 @@
 
 .sidenav .list-group li{
   cursor: pointer;
-  background-color: #212529;
+  background-color: transparent;
 }
 
 .sidenav .list-group li:hover{
-  background-color: #16181b;
+  background-color: transparent;
 }
 
 .sidenav .list-group li span{
@@ -45,5 +45,5 @@
 
 
 .btn_registerNewRoute{
-  border: 1px solid #16181b;
+  border: 1px solid transparent;
 } 

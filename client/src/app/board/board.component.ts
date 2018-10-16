@@ -85,24 +85,18 @@ export class BoardComponent implements OnInit, AfterViewInit {
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // TASKS
 
-  // getAllTasks(){
-  //   this.http.get<ReturnObject>('/api/task/' + this.boardId)
-  //       .subscribe(
-  //           (res) => { this.allTasks = res.data; console.log(this.allTasks) },
-  //           (err) => {  }
-  //       )
-  // }
-
   moveTask(taskId: string, listId: string){
     this.http.get<ReturnObject>(`/api/task/move/${taskId}/${listId}`)
         .subscribe(
-            (res) => {
-              alert(res.message);
-            },
+            (res) => {  },
             (err) => {
               alert('Error');
             }
         )
+  }
+
+  getTaskDetails(taskId: string){
+    alert(taskId);
   }
 
   addNewTask(){
