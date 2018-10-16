@@ -14,6 +14,7 @@ import { StepModel } from '../../models/task/step.model';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit, AfterViewInit {
+  isLoadingBoard = true;
   boardId: string;
   board: BoardModel;
   listToCreate: ListModel = new ListModel();
@@ -29,44 +30,24 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.boardId = params['id'];
       this.getBoardDetails();
-      this.getAllTasks();
     });
     this.makeScrollable = false;
   }
 
   // Getters
   
-  public get backlog_tasks() : TaskModel[] {
-    return this.allTasks.filter(x => x.ListId == this.board.Backlog._id);
-  }
-
-  private getTasksOfList(listId: string): TaskModel[] {
-    return this.allTasks.filter(x => x.ListId = listId);
+  
+  public get board_lists() : ListModel[] {
+    return this.board.Lists.filter(x => x._id);
   }
   
-  public get lists_model(): ListModel[]{
-    let temp: ListModel[] = [];
 
-    if (this.board && this.board.Lists && this.allTasks) {
-      this.board.Lists.forEach( (list:ListModel) => {
-        this.allTasks.forEach((task: TaskModel) => {
-            if (list._id == task.ListId ) {
-              if (!list.Tasks) list.Tasks = [];
-              list.Tasks.push(task);
-            }
-        });
-        // list.Tasks = this.getTasksOfList(list._id);
-        temp.push(list);
-    });
-    }
-    
-    return temp;
-  }
   
   getBoardDetails() {
+    this.isLoadingBoard = true;
     this.http.get<ReturnObject>(`/api/boards/find/${this.boardId}`)
         .subscribe(
-          (res) => {this.board = res.data; console.log('BOARD:', res.data); },
+          (res) => {this.board = res.data; this.isLoadingBoard = false; },
           (err) => { }
         );
   }
@@ -104,13 +85,13 @@ export class BoardComponent implements OnInit, AfterViewInit {
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // TASKS
 
-  getAllTasks(){
-    this.http.get<ReturnObject>('/api/task/' + this.boardId)
-        .subscribe(
-            (res) => { this.allTasks = res.data; console.log(this.allTasks) },
-            (err) => {  }
-        )
-  }
+  // getAllTasks(){
+  //   this.http.get<ReturnObject>('/api/task/' + this.boardId)
+  //       .subscribe(
+  //           (res) => { this.allTasks = res.data; console.log(this.allTasks) },
+  //           (err) => {  }
+  //       )
+  // }
 
   moveTask(taskId: string, listId: string){
     this.http.get<ReturnObject>(`/api/task/move/${taskId}/${listId}`)

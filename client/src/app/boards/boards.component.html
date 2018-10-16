@@ -40,7 +40,7 @@
               </div>
               <div class="col-md-4">
                   <label for=""> {{ 'BOARD.Color' | translate }} </label>
-                  <select class="custom-select">
+                  <select class="custom-select" [(ngModel)]="boardToCreate.Color">
                     <option value="primary">{{'COLOR.Blue' | translate}}</option>
                     <option value="danger">{{'COLOR.Red' | translate}}</option>
                     <option value="success">{{'COLOR.Green' | translate}}</option>

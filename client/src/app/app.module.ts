@@ -17,6 +17,7 @@ import { BlogPostComponent } from './blog-post/blog-post.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LandingComponent } from './landing/landing.component';
 import { TestComponent } from './test/test.component';
+import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 
 // Pipes
 import { SafePipe } from '../pipes/safe.pipe';
@@ -54,7 +55,8 @@ import { LoadingManager } from '../services/UI/loading.service';
     SafePipe,
     TruncatePipe,
     LandingComponent,
-    TestComponent
+    TestComponent,
+    LoadingIndicatorComponent
   ],
   imports: [
     BrowserModule,
