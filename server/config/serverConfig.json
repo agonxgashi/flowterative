@@ -6,9 +6,10 @@
         "PORT" : 3201
     },
     "general": {
-        "welcome_text" : "Server started successfully!\n\t• Navigate on your browser on localhost:3200\n\t• Enter credentials [ username: admin, password: administrator]\n\t• Continue with flowterative\nWaiting for requests:\n"
+        "welcome_text" : "Server started successfully!\n\t• Navigate on your browser on localhost:4200\n\t• Continue with flowterative\nWaiting for requests:\n"
     },
     "jwt": {
-        "secret": "UltraSecretKey123!"
+        "secret": "UltraSecretKey123!",
+        "expireTime": 86400
     }
 }

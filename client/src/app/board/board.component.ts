@@ -7,23 +7,28 @@ import { DragulaService } from 'ng2-dragula';
 import { HttpClient } from '@angular/common/http';
 import { TaskModel } from '../../models/task/task.model';
 import { StepModel } from '../../models/task/step.model';
+import { CommentModel } from '../../models/task/comment.model';
+import { JwtManager } from '../../services/auth/jwt-manager.service';
 
 @Component({
-  selector: 'app-board',
+  selector   : 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.css']
+  styleUrls  : ['./board.component.css']
 })
 export class BoardComponent implements OnInit, AfterViewInit {
   isLoadingBoard = true;
-  boardId: string;
-  board: BoardModel;
-  listToCreate: ListModel = new ListModel();
+  boardId       : string;
+  board         : BoardModel;
+  listToCreate  : ListModel = new ListModel();
   makeScrollable: boolean;
-  allTasks: TaskModel[] = [];
-  taskToAdd: TaskModel = new TaskModel();
-  subtaskToAdd: StepModel = new StepModel();
+  allTasks      : TaskModel[] = [];
+  selectedTask  : TaskModel = new TaskModel();
+  taskToAdd     : TaskModel = new TaskModel();
+  subtaskToAdd  : StepModel = new StepModel();
+  memberToAdd   : string;
+  commentToAdd  : CommentModel = new CommentModel();
 
-  constructor(private activatedRoute: ActivatedRoute, private dragulaService: DragulaService, private http: HttpClient) { 
+  constructor(private activatedRoute: ActivatedRoute, private dragulaService: DragulaService, private http: HttpClient, private token: JwtManager) {
   }
 
   ngOnInit() {
@@ -35,14 +40,11 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   // Getters
-  
-  
-  public get board_lists() : ListModel[] {
+
+  public get board_lists(): ListModel[] {
     return this.board.Lists.filter(x => x._id);
   }
-  
 
-  
   getBoardDetails() {
     this.isLoadingBoard = true;
     this.http.get<ReturnObject>(`/api/boards/find/${this.boardId}`)
@@ -72,41 +74,58 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  // BOARD
+
+  addMember() {
+    const data = {
+      Username: this.memberToAdd,
+      BoardId : this.boardId
+    };
+    this.http.post('/api/boards/add-new-member', data)
+        .subscribe(
+          (res) => { }
+        );
+  }
+
+  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // LISTS
 
   addList() {
     this.listToCreate.BoardId = this.boardId;
     this.http.post<ReturnObject>('/api/boards/add-list', this.listToCreate)
         .subscribe(
-            (res) => { this.getBoardDetails() }
+            (res) => { this.getBoardDetails(); }
         );
   }
 
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // TASKS
 
-  moveTask(taskId: string, listId: string){
+  moveTask(taskId: string, listId: string) {
     this.http.get<ReturnObject>(`/api/task/move/${taskId}/${listId}`)
         .subscribe(
             (res) => {  },
             (err) => {
               alert('Error');
             }
-        )
+        );
   }
 
-  getTaskDetails(taskId: string){
-    alert(taskId);
+  getTaskDetails(taskId: string) {
+    this.http.get<ReturnObject>('/api/task/details/' + taskId)
+        .subscribe(
+            (res) => { this.selectedTask = res.data; }
+        );
   }
 
-  addNewTask(){
+  addNewTask() {
     this.taskToAdd.ProjectId = this.boardId;
-    this.taskToAdd.ListId = this.board.Backlog._id; // Id of default list which is backlog
+    this.taskToAdd.ListId    = this.board.Backlog._id;  // Id of default list which is backlog
     this.http.post('/api/task/add-new', this.taskToAdd)
         .subscribe(
             (res) => { this.taskToAdd = new TaskModel(); },
             (err) => { }
-        )
+        );
   }
 
   addSubtask() {
@@ -119,4 +138,13 @@ export class BoardComponent implements OnInit, AfterViewInit {
       this.taskToAdd.Steps.splice(subtaskIndex, 1);
     }
   }
+
+  addNewComment() {
+    this.commentToAdd.CreatedBy = this.token.getUser()._id;
+    this.http.post<ReturnObject>('/api/task/comment/' + this.selectedTask._id, this.commentToAdd)
+        .subscribe(
+            (res) => { if (res.success === true) { this.selectedTask.Comments.push(this.commentToAdd); } }
+        );
+  }
+
 }

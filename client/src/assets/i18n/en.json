@@ -2,21 +2,22 @@
     "GENERAL": {
         "Search": "Search",
         "Cancel": "Cancel",
-        "Save": "Save",
-        "Back": "Back"
+        "Save"  : "Save",
+        "Back"  : "Back",
+        "Close" : "Close"
     },
     "RESPONSE": {
-        "ERR_INVALID_CREDENTIALS" : "Invalid credentials!",
-        "ERR_LOGIN_NOCREDS": "Please fill required fields!"
+        "ERR_INVALID_CREDENTIALS": "Invalid credentials!",
+        "ERR_LOGIN_NOCREDS"      : "Please fill required fields!"
     },
     "AUTH": {
-        "Name": "Name",
-        "Surname": "Surname",
-        "Email": "Email",
+        "Name"    : "Name",
+        "Surname" : "Surname",
+        "Email"   : "Email",
         "Username": "Username",
         "Password": "Password",
-        "LOGIN": "LOG IN",
-        "SIGNUP": "SIGN UP"
+        "LOGIN"   : "LOG IN",
+        "SIGNUP"  : "SIGN UP"
     },
     "LBL":{
         "REGISTER_HERE": "Don't have an account? Click here to register!"
@@ -25,24 +26,31 @@
 
     },
     "BOARD": {
-        "MyBoards": "Boards",
-        "Name": "Board Name",
+        "MyBoards"   : "Boards",
+        "Name"       : "Board Name",
         "Description": "Board Description",
-        "CreateNew": "Create New Board",
-        "Members": "members",
-        "Color": "Color",
-        "Settings": "Board Settings"
+        "CreateNew"  : "Create New Board",
+        "Members"    : "members",
+        "Color"      : "Color",
+        "Settings"   : "Board Settings",
+        "AddMember"  : "Add member"
     },
     "TASK":{
-        "New": "New Task"
+        "New"       : "New Task",
+        "Comments"  : "Comments",
+        "NoComments": "No comments",
+        "FromDate": "From",
+        "DueDate": "Due",
+        "StartDate": "Started",
+        "Steps": "Steps"
     },
     "LIST":{
         "CreateNew": "Create new list"
     },
     "COLOR": {
-        "Red": "Red",
-        "Blue": "Blue",
-        "Green": "Green",
+        "Red"   : "Red",
+        "Blue"  : "Blue",
+        "Green" : "Green",
         "Yellow": "Yellow"
     }
 }

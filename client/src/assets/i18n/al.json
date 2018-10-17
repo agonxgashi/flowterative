@@ -3,7 +3,8 @@
         "Search": "Kërko",
         "Cancel": "Ndërprej",
         "Save": "Ruaj",
-        "Back": "Prapa"
+        "Back": "Prapa",
+        "Close": "Mbyll"
     },
     "RESPONSE": {
         "ERR_INVALID_CREDENTIALS" : "Kredenciale të gabuara!",
@@ -30,10 +31,17 @@
         "CreateNew": "Krijo Projekt të Ri",
         "Members": "antarë",
         "Color": "Ngjyra",
-        "Settings": "Rregullimet e projektit"
+        "Settings": "Rregullimet e projektit",
+        "AddMember": "Shto anëtarë"
     },
     "TASK":{
-        "New": "Detyre e re"
+        "New": "Detyre e re",
+        "Comments": "Komentet",
+        "NoComments": "Asnjë koment",
+        "FromDate": "Prej",
+        "DueDate": "Deri",
+        "StartDate": "Filluar",
+        "Steps": "Hapat"
     },
     "LIST":{
         "CreateNew": "Shto listë të re"

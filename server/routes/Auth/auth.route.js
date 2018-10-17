@@ -1,9 +1,9 @@
-const AppUser       = require('./../../db/Auth/auth.repo');
+const AppUser = require('./../../db/Auth/auth.repo');
 const server_config = require('./../../config/serverConfig.json')
-const ReturnObj     = require('./../../models/return-object.model')
-const express       = require('express');
-const jwt           = require('jsonwebtoken'); 
-const router        = express.Router();
+const ReturnObj = require('./../../models/return-object.model')
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const router = express.Router();
 
 router.post('/', function (req, res) {
 
@@ -34,11 +34,11 @@ router.post('/login', function (req, res) {
                     var payload = {
                         _id: user._id,
                         Username: _username
-                      }
+                    }
                     var token = jwt.sign(payload, server_config.jwt.secret, {
-                        expiresIn: 86400 // 24 hours
-                      });
-                      res.status(200).send(new ReturnObj(true, "MSG_SUCCESS_LOGIN", 200, token));
+                        expiresIn: server_config.jwt.expireTime
+                    });
+                    res.status(200).send(new ReturnObj(true, "MSG_SUCCESS_LOGIN", 200, token));
                 } else {
                     res.status(200).send(new ReturnObj(false, "ERR_INVALID_CREDENTIALS", 401, null));
                 }
