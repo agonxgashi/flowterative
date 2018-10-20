@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class JwtManager {
-    private name = 'P-AUTH-TOKEN';
+    private name = 'FT-AUTH-TOKEN';
 
     // Below code represents an observable which is used on nav-bar component
     // to update fields when user is online and when is not.

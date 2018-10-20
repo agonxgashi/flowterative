@@ -29,7 +29,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
   stepToAdd: StepModel = new StepModel();
   memberToAdd: string;
   commentToAdd: CommentModel = new CommentModel();
-  filterMyTasksOnly = true;
+  filterMyTasksOnly: Boolean;
 
   constructor(private activatedRoute: ActivatedRoute,
     private dragulaService: DragulaService,
@@ -43,21 +43,28 @@ export class BoardComponent implements OnInit, AfterViewInit {
       this.getBoardDetails();
     });
     this.makeScrollable = false;
+    this.filterMyTasksOnly = this.getFilterValue();
   }
 
   // Getters
-
   public get board_lists(): ListModel[] {
+    return this.board.Lists;
+  }
+
+  filterTasksOfList(list: ListModel): TaskModel[] {
     if (this.filterMyTasksOnly) {
-      const lists: ListModel[] = [];
-      this.board.Lists.forEach(list => {
-        list.Tasks = list.Tasks.filter(x => x.Members.includes(this.token.getUser()._id));
-        lists.push(list);
-      });
-      return lists;
+      return list.Tasks.filter(x => x.Members.indexOf(this.token.getUser()._id) !== -1 );
     } else {
-      return this.board.Lists.filter(x => x._id);
+      return list.Tasks;
     }
+  }
+
+  getFilterValue(): Boolean {
+    return JSON.parse(localStorage.getItem('FT-FILTER-MY-TASKS') || 'false');
+  }
+
+  setFilterValue() {
+    localStorage.setItem('FT-FILTER-MY-TASKS', JSON.stringify(this.filterMyTasksOnly));
   }
 
   getBoardDetails() {

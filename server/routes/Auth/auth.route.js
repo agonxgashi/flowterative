@@ -5,8 +5,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 
-router.post('/', function (req, res) {
-
+router.post('/register', function (req, res) {
     const _appUser = new AppUser(req.body);
     _appUser.save(err => {
         if (err) return res.status(500).send(err);

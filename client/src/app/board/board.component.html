@@ -3,8 +3,9 @@
   <div class="row p-0 m-0">
     <div class="col-md-9 offset-md-3 p-3">
         <div class="custom-control custom-toggle">
-            <input type="checkbox" [(ngModel)]="filterMyTasksOnly" id="filterMyTasksOnly" class="custom-control-input">
-            <label class="custom-control-label" for="filterMyTasksOnly">{{filterMyTasksOnly}}</label>
+            <input type="checkbox" [(ngModel)]="filterMyTasksOnly" (change)="setFilterValue()" id="filterMyTasksOnly" class="custom-control-input">
+            <label class="custom-control-label" for="filterMyTasksOnly" *ngIf="!filterMyTasksOnly">{{'TASK.ListAll' | translate}}</label>
+            <label class="custom-control-label" for="filterMyTasksOnly" *ngIf="filterMyTasksOnly">{{'TASK.ListMine' | translate}}</label>
           </div>
       </div>
     <div class="col-md-3">
@@ -31,7 +32,8 @@
         <br>
         <ul class="list-group">
           <li class="list-group-item" id="{{board.Backlog._id}}" [dragula]='"bag-one"'>
-            <span *ngFor="let task of board.Backlog.Tasks" id="{{task._id}}" href="#" class="list-group-item list-group-item-action align-items-start clickable">
+              <!-- *ngFor="let task of filterTasksOfList(list)" -->
+            <span  *ngFor="let task of filterTasksOfList(board.Backlog)" id="{{task._id}}" href="#" class="list-group-item list-group-item-action align-items-start clickable">
               <div class="d-row w-100 justify-content-between ">
                 <!-- Task title -->
                 <h5 class="mb-1 mr-2">
@@ -63,7 +65,7 @@
 
 
 
-    <div *ngIf="board" class="p-5 d-flex col-md-9 justify-content-start">
+    <div *ngIf="board" class="px-3 py-1 d-flex col-md-9 justify-content-start">
            
         <div class="clear"></div>
       <!-- <pre>{{ board | json}}</pre> -->
@@ -76,7 +78,7 @@
         </span>
         <div class="list-content" id="{{list._id}}" [dragula]='"bag-one"'>
           <!-- FOREACH TASK OF THE LIST -->
-          <span *ngFor="let task of list.Tasks" id="{{task._id}}" data-toggle="modal" data-target="#task-details"
+          <span *ngFor="let task of filterTasksOfList(list)" id="{{task._id}}" data-toggle="modal" data-target="#task-details"
             (click)="getTaskDetails(task._id)" class="list-group-item list-group-item-action flex-column align-items-start clickable">
             <div class="d-row w-100 justify-content-between ">
               <!-- Task title -->
@@ -137,10 +139,11 @@
             </div>
             <div class="col-md-8">
               <h5>{{'TASK.Comments' | translate}}</h5>
-              <small *ngIf="selectedTask.Comments.length == 0">
-                {{ 'TASK.NoComments' | translate}}
-              </small>
+              
               <div class="commentSection task-scroable-content">
+                  <small *ngIf="selectedTask.Comments.length == 0">
+                      {{ 'TASK.NoComments' | translate}}
+                    </small>
                 <div class="col-md-12 p-1" *ngFor="let c of selectedTask.Comments">
                   <div class="col-md-12 comment">
                   <markdown> {{c.Content}} </markdown>
@@ -173,15 +176,7 @@
                 {{'POST' | translate}} </button>
             </div>
           </div>
-
-
         </div>
-        <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">
-            <i class="fa fa-ban"> </i> {{'GENERAL.Close' | translate}} </button>
-          <button [disabled]="!listToCreate.Name" type="button" class="btn btn-success" data-dismiss="modal" (click)="addList()">
-            <i class="fa fa-save"> </i> {{'GENERAL.Save' | translate}} </button>
-        </div> -->
       </div>
     </div>
   </div>
@@ -201,25 +196,25 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-md-6">
-              <label for="">{{'TASK.Title'}}</label>
+              <label for="">{{'TASK.Title' | translate}}</label>
               <input type="text" placeholder="Title" [(ngModel)]="taskToAdd.Name" class="form-control">
               <br>
-              <label for="">{{'TASK.Description'}}</label>
+              <label for="">{{'TASK.Description' | translate}}</label>
               <textarea class="form-control" [(ngModel)]="taskToAdd.Description" name="tasktoadddescription" cols="30"
                 rows="4" placeholder="Description"></textarea>
               <br>
-              <label for="">{{'TASK.From'}}</label>
+              <label for="">{{'TASK.FromDate' | translate}}</label>
               <input type="date" id="datepicker-example" [(ngModel)]="taskToAdd.StartDate" placeholder="From" class="form-control">
               <br>
-              <label for="">{{'TASK.Due'}}</label>
+              <label for="">{{'TASK.DueDate' | translate}}</label>
               <input type="date" id="datepicker-example" [(ngModel)]="taskToAdd.DueDate" placeholder="To" class="form-control">
 
             </div>
             <div class="col-md-6">
-              <label for="">{{'TASK.Assign'}}</label>
+              <label for="">{{'TASK.Assign' | translate}}</label>
               <input type="text" class="form-control" placeholder="Assign">
               <br>
-              <label for="">{{'TASK.Steps'}}</label>
+              <label for="">{{'TASK.Steps' | translate}}</label>
               <input type="text" placeholder="Add Steps" [(ngModel)]="subtaskToAdd.Content" (keyup.enter)="addSubtask()"
                 class="form-control">
               <ul style="list-style: none;" *ngIf="taskToAdd">
@@ -330,12 +325,6 @@
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Creating new board</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
       <div class="modal-body">
 
         <div class="input-group input-group-seamless">
@@ -346,8 +335,6 @@
           </div>
           <input type="text" [(ngModel)]="memberToAdd" class="form-control" aria-label="Text input with checkbox">
         </div>
-
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">

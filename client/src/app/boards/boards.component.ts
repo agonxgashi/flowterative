@@ -29,7 +29,7 @@ export class BoardsComponent implements OnInit {
 
 
   getBoards() {
-    this.http.get<ReturnObject>('/api/boards')
+    this.http.get<ReturnObject>('/api/boards/' + this.jwt.getUser()._id)
         .subscribe(
             (res) => { this.responseBoards = res; console.log(this.responseBoards.data); }
         );

@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class LanguageService {
-    private value_key = 'FLOWTERATIVE-LANG';
+    private value_key = 'FT-LANG';
     constructor(private translate: TranslateService) {
      }
 

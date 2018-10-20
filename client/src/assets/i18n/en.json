@@ -1,57 +1,62 @@
 {
-    "GENERAL": {
-        "Search": "Search",
-        "Cancel": "Cancel",
-        "Save"  : "Save",
-        "Back"  : "Back",
-        "Close" : "Close"
-    },
-    "RESPONSE": {
-        "ERR_INVALID_CREDENTIALS": "Invalid credentials!",
-        "ERR_LOGIN_NOCREDS"      : "Please fill required fields!"
-    },
-    "AUTH": {
-        "Name"    : "Name",
-        "Surname" : "Surname",
-        "Email"   : "Email",
-        "Username": "Username",
-        "Password": "Password",
-        "LOGIN"   : "LOG IN",
-        "SIGNUP"  : "SIGN UP"
-    },
-    "LBL":{
-        "REGISTER_HERE": "Don't have an account? Click here to register!"
-    },
-    "MSG": {
+  "GENERAL": {
+    "Search": "Search",
+    "Cancel": "Cancel",
+    "Save": "Save",
+    "Back": "Back",
+    "Close": "Close"
+  },
+  "RESPONSE": {
+    "ERR_INVALID_CREDENTIALS": "Invalid credentials!",
+    "ERR_LOGIN_NOCREDS": "Please fill required fields!"
+  },
+  "AUTH": {
+    "Name": "Name",
+    "Surname": "Surname",
+    "Email": "Email",
+    "Username": "Username",
+    "Password": "Password",
+    "LOGIN": "LOG IN",
+    "SIGNUP": "SIGN UP"
+  },
+  "LBL": {
+    "REGISTER_HERE": "Don't have an account? Click here to register!"
+  },
+  "MSG": {
 
-    },
-    "BOARD": {
-        "MyBoards"   : "Boards",
-        "Name"       : "Board Name",
-        "Description": "Board Description",
-        "CreateNew"  : "Create New Board",
-        "Members"    : "members",
-        "Color"      : "Color",
-        "Settings"   : "Board Settings",
-        "AddMember"  : "Add member"
-    },
-    "TASK":{
-        "New"       : "New Task",
-        "Comments"  : "Comments",
-        "NoComments": "No comments",
-        "FromDate": "From",
-        "DueDate": "Due",
-        "StartDate": "Started",
-        "Steps": "Steps",
-        "Members": "Members"
-    },
-    "LIST":{
-        "CreateNew": "Create new list"
-    },
-    "COLOR": {
-        "Red"   : "Red",
-        "Blue"  : "Blue",
-        "Green" : "Green",
-        "Yellow": "Yellow"
-    }
+  },
+  "BOARD": {
+    "MyBoards": "Boards",
+    "Name": "Board Name",
+    "Description": "Board Description",
+    "CreateNew": "Create New Board",
+    "Members": "members",
+    "Color": "Color",
+    "Settings": "Board Settings",
+    "AddMember": "Add member"
+  },
+  "TASK": {
+    "Title": "Title",
+    "Description": "Description",
+    "New": "New Task",
+    "Comments": "Comments",
+    "NoComments": "No comments",
+    "FromDate": "From",
+    "DueDate": "Due",
+    "StartDate": "Started",
+    "Steps": "Steps",
+    "Members": "Members",
+    "Assign": "Assign",
+    "ListAll": "All tasks",
+    "ListMine": "My tasks"
+  },
+  "LIST": {
+    "CreateNew": "Create new list"
+  },
+  "COLOR": {
+    "Red": "Red",
+    "Blue": "Blue",
+    "Green": "Green",
+    "Yellow": "Yellow"
+  }
 }

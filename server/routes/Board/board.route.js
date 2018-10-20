@@ -8,17 +8,21 @@ const User      = require('./../../db/Auth/auth.repo');
 const mongoose  = require('mongoose');
 
 // • Declaring POST method to get boards from Db
-router.get('/', function (req, res) {
-    Board.find(function (err, allBoards) {
+router.get('/:user', function (req, res) {
+    const userId = req.params.user;
+    console.log(userId);
+    Board.find({
+        // Created by or is a member
+        $or: [{"CreatedBy": userId}, {"Members": userId}]},
+    function (err, allBoards) {
         if (err)
             res.status(500).send(new ReturnObj(false, "ERR_SOMETHING_WENT_WRONG", 500, null));
         res.status(200).send(new ReturnObj(true, "MSG_BOARDS_FOUNDED", 200, allBoards));
     }).select({
-        Admins     : 1,
-        Members    : 1,
-        Color      : 1,
-        Name       : 1,
-        Description: 1
+        Admins: 1,
+        Members: 1,
+        Color: 1,
+        Name: 1
     });
 });
 
@@ -97,7 +101,7 @@ router.post('/add-new-member', function(req, res) {
         if (err || !user) { res.send(new ReturnObj(false, "ERR_LIST_NOT_ADDED", 200, null)); }
         else {
         Board.findByIdAndUpdate({_id: _boardId}, 
-        { $push: { "Members": user._id } },
+        { $addToSet: { "Members": user._id } },
         (err, result) => {
             if (err) res.send(new ReturnObj(false, "ERR_LIST_NOT_ADDED", 200, null));
             res.send(new ReturnObj(true, "MSG_USER_ADDED_ON_BOARD", 200, null));

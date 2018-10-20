@@ -1,56 +1,60 @@
 {
-    "GENERAL": {
-        "Search": "Kërko",
-        "Cancel": "Ndërprej",
-        "Save": "Ruaj",
-        "Back": "Prapa",
-        "Close": "Mbyll"
-    },
-    "RESPONSE": {
-        "ERR_INVALID_CREDENTIALS" : "Kredenciale të gabuara!",
-        "ERR_LOGIN_NOCREDS": "Ju lutem mbushni fushat e kërkuara!"
-    },
-    "AUTH": {
-        "Name": "Emri",
-        "Surname": "Mbiemri",
-        "Email": "Email",
-        "Username": "Shfrytëzuesi",
-        "Password": "Fjalëkalimi",
-        "LOGIN": "Kyqu",
-        "SIGNUP": "Registrohu"
-    },
-    "LBL":{
-        "REGISTER_HERE": "Nuk keni llogari? Klikoni këtu për tu regjistruar!"
-    },
-    "MSG": {
-    },
-    "BOARD": {
-        "MyBoards": "Projektet",
-        "Name": "Emri i Projektit",
-        "Description": "Përshkrimi i Projektit",
-        "CreateNew": "Krijo Projekt të Ri",
-        "Members": "antarë",
-        "Color": "Ngjyra",
-        "Settings": "Rregullimet e projektit",
-        "AddMember": "Shto anëtarë"
-    },
-    "TASK":{
-        "New": "Detyre e re",
-        "Comments": "Komentet",
-        "NoComments": "Asnjë koment",
-        "FromDate": "Prej",
-        "DueDate": "Deri",
-        "StartDate": "Filluar",
-        "Steps": "Hapat",
-        "Members": "Anëtarët"
-    },
-    "LIST":{
-        "CreateNew": "Shto listë të re"
-    },
-    "COLOR": {
-        "Red": "Kuq",
-        "Blue": "Kaltër",
-        "Green": "Gjelbër",
-        "Yellow": "Verdhë"
-    }
+  "GENERAL": {
+    "Search": "Kërko",
+    "Cancel": "Ndërprej",
+    "Save": "Ruaj",
+    "Back": "Prapa",
+    "Close": "Mbyll"
+  },
+  "RESPONSE": {
+    "ERR_INVALID_CREDENTIALS": "Kredenciale të gabuara!",
+    "ERR_LOGIN_NOCREDS": "Ju lutem mbushni fushat e kërkuara!"
+  },
+  "AUTH": {
+    "Name": "Emri",
+    "Surname": "Mbiemri",
+    "Email": "Email",
+    "Username": "Shfrytëzuesi",
+    "Password": "Fjalëkalimi",
+    "LOGIN": "Kyqu",
+    "SIGNUP": "Registrohu"
+  },
+  "LBL": {
+    "REGISTER_HERE": "Nuk keni llogari? Klikoni këtu për tu regjistruar!"
+  },
+  "MSG": {},
+  "BOARD": {
+    "MyBoards": "Projektet",
+    "Name": "Emri i Projektit",
+    "Description": "Përshkrimi i Projektit",
+    "CreateNew": "Krijo Projekt të Ri",
+    "Members": "antarë",
+    "Color": "Ngjyra",
+    "Settings": "Rregullimet e projektit",
+    "AddMember": "Shto anëtarë"
+  },
+  "TASK": {
+    "Title": "Titulli",
+    "Description": "Përshkrimi",
+    "New": "Detyre e re",
+    "Comments": "Komentet",
+    "NoComments": "Asnjë koment",
+    "FromDate": "Prej",
+    "DueDate": "Deri",
+    "StartDate": "Filluar",
+    "Steps": "Hapat",
+    "Members": "Anëtarët",
+    "Assign": "Ngarko personit",
+    "ListAll": "Të gjitha detyrat",
+    "ListMine": "Detyrat e mia"
+  },
+  "LIST": {
+    "CreateNew": "Shto listë të re"
+  },
+  "COLOR": {
+    "Red": "Kuq",
+    "Blue": "Kaltër",
+    "Green": "Gjelbër",
+    "Yellow": "Verdhë"
+  }
 }
