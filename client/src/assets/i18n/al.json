@@ -41,7 +41,8 @@
         "FromDate": "Prej",
         "DueDate": "Deri",
         "StartDate": "Filluar",
-        "Steps": "Hapat"
+        "Steps": "Hapat",
+        "Members": "Anëtarët"
     },
     "LIST":{
         "CreateNew": "Shto listë të re"

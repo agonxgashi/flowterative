@@ -46,4 +46,21 @@
 
 .btn_registerNewRoute{
   border: 1px solid transparent;
-} 
+}
+
+.task-scroable-content{
+  height: 35vh; 
+  overflow-y: auto;
+}
+
+.comment{
+  background-color: #f8f7f7;
+  border-radius: 5px;
+}
+
+.modal-fs{
+  max-width: 90vw;
+    width: auto !important;
+    display: inline-block;
+    display: flex !important;
+}

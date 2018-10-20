@@ -1,8 +1,8 @@
 import { AppUser } from '../auth/appUser.model';
 
 export class CommentModel {
-    Content       : string;
-    CreatedBy     : string;
+    Content: string;
+    CreatedBy: any;
     CreatedByModel: AppUser;
-    CreateDate    : Date;
+    CreateDate: Date;
 }

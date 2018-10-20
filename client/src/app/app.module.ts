@@ -30,6 +30,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { DragScrollModule } from 'ngx-drag-scroll';
 import { A2Edatetimepicker } from 'ng2-eonasdan-datetimepicker';
+import { MarkdownModule } from 'angular2-markdown';
 
 // Variables
 import { appRoutes } from './../routes';
@@ -63,6 +64,7 @@ import { LoadingManager } from '../services/UI/loading.service';
     HttpModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
+    MarkdownModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

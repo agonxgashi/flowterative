@@ -13,7 +13,7 @@ const TaskSchema = new Schema({
     Comments: [CommentSchema],
     DueDate: { type: Date, default: Date.now() },
     InsDate: { type: Date, default: Date.now() },
-    Members: { type: [mongoose.Schema.Types.ObjectId] },
+    Members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'AppUser' }],
     Steps: [StepSchema],
     Tag: String
 });

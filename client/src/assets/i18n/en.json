@@ -42,7 +42,8 @@
         "FromDate": "From",
         "DueDate": "Due",
         "StartDate": "Started",
-        "Steps": "Steps"
+        "Steps": "Steps",
+        "Members": "Members"
     },
     "LIST":{
         "CreateNew": "Create new list"

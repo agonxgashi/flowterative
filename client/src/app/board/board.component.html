@@ -1,7 +1,12 @@
 <app-loading *ngIf="isLoadingBoard"></app-loading>
 <div *ngIf="board">
   <div class="row p-0 m-0">
-
+    <div class="col-md-9 offset-md-3 p-3">
+        <div class="custom-control custom-toggle">
+            <input type="checkbox" [(ngModel)]="filterMyTasksOnly" id="filterMyTasksOnly" class="custom-control-input">
+            <label class="custom-control-label" for="filterMyTasksOnly">{{filterMyTasksOnly}}</label>
+          </div>
+      </div>
     <div class="col-md-3">
       <div class="sidebar sidenav col-md-3 bg-light">
 
@@ -59,7 +64,8 @@
 
 
     <div *ngIf="board" class="p-5 d-flex col-md-9 justify-content-start">
-      <div class="clear"></div>
+           
+        <div class="clear"></div>
       <!-- <pre>{{ board | json}}</pre> -->
       <!-- FOREACH LIST OF PROJECT -->
       <div *ngFor="let list of board_lists" class="list-group col-md-3">
@@ -70,12 +76,8 @@
         </span>
         <div class="list-content" id="{{list._id}}" [dragula]='"bag-one"'>
           <!-- FOREACH TASK OF THE LIST -->
-          <span *ngFor="let task of list.Tasks" 
-                id="{{task._id}}"
-                data-toggle="modal"
-                data-target="#task-details" 
-                (click)="getTaskDetails(task._id)" 
-                class="list-group-item list-group-item-action flex-column align-items-start clickable">
+          <span *ngFor="let task of list.Tasks" id="{{task._id}}" data-toggle="modal" data-target="#task-details"
+            (click)="getTaskDetails(task._id)" class="list-group-item list-group-item-action flex-column align-items-start clickable">
             <div class="d-row w-100 justify-content-between ">
               <!-- Task title -->
               <h5 class="mb-1 mr-2">
@@ -104,67 +106,82 @@
   </div>
 
   <!-- MODAL: Task Details -->
-  <div class="modal fade" id="task-details" tabindex="-1" role="dialog" aria-labelledby="task-details"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+  <div class="modal fade" id="task-details" tabindex="-1" role="dialog" aria-labelledby="task-details" aria-hidden="true">
+    <div class="modal-dialog modal-fs" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Task Details</h5>
+          <h5 class="modal-title" id="exampleModalLabel">{{selectedTask.Name}}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
         <div class="modal-body">
-          <div class="row p-0 m-0">
-            <div class="col-md-12">
-              <h4>{{selectedTask.Name}}</h4>
-              <p> {{selectedTask.Description}}</p>
-              <hr>
-            </div> 
-            <br>
-            <div class="col-md-6">
-              <h5>{{'TASK.Comments' | translate}}</h5>
-              <small *ngIf="selectedTask.Comments.length == 0">  
-                {{ 'TASK.NoComments' | translate}}
-              </small>
-              <div class="commentSection" style="max-height: 40vh; overflow-y: auto">
-              <div class="col-md-12 py-1" *ngFor="let c of selectedTask.Comments">
-                <b>{{c.CreatedBy}}</b> <br>
-                <span> {{c.Content}} </span> <br>
-                <i class="text-right"> {{c.CreateDate | date}} </i>
-              </div>
-            </div>
+
+          <app-loading *ngIf="!selectedTask"></app-loading>
+          <div *ngIf="selectedTask" class="row p-0 m-0">
+            <div class="col-md-8">
+              <span> {{selectedTask.Description}}</span>
               <br>
-              <br>
-              <textarea [(ngModel)]="commentToAdd.Content" class="form-control" rows="2"></textarea>
-              <br>
-              <button [disabled]="!commentToAdd.Content"
-              (click)="addNewComment()" class="btn btn-block btn-outline-primary"> {{'POST' | translate}} </button>
-            </div>
-            <div class="col-md-6">
               <b> {{'TASK.StartDate' | translate}}: </b> <span> {{selectedTask.StartDate | date}} </span>
               <br>
               <b> {{'TASK.DueDate' | translate}}: </b> <span> {{selectedTask.DueDate | date}} </span>
+              
+            </div>
+            <div class="col-md-4">
+              <button class="btn btn-primary pull-right"> {{'TASK.Members' | translate}} </button>
+            </div>
+            
+            <br>
+            <div class="col-md-12">
+              <hr>
+            </div>
+            <div class="col-md-8">
+              <h5>{{'TASK.Comments' | translate}}</h5>
+              <small *ngIf="selectedTask.Comments.length == 0">
+                {{ 'TASK.NoComments' | translate}}
+              </small>
+              <div class="commentSection task-scroable-content">
+                <div class="col-md-12 p-1" *ngFor="let c of selectedTask.Comments">
+                  <div class="col-md-12 comment">
+                  <markdown> {{c.Content}} </markdown>
+                  <i class="text-right"> {{c.CreateDate | date}} <label> @{{c.CreatedBy.Username}}</label> </i> 
+                </div>
+                </div>
+              </div>
               <br>
+
+              <textarea [(ngModel)]="commentToAdd.Content" class="form-control" rows="2"></textarea>
               <br>
+              <button [disabled]="!commentToAdd.Content" (click)="addNewComment()" class="btn btn-block btn-outline-primary">
+                {{'POST' | translate}} </button>
+            </div>
+            <div class="col-md-4">
+              
               <h5>{{'TASK.Steps' | translate}}</h5>
+              <div class="task-scroable-content">
               <div class="col-md-12" *ngFor="let s of selectedTask.Steps">
                 <div class="form-check">
                   <input class="form-check-input" id="{{s.IsDone}}" type="checkbox" [(ngModel)]="s.IsDone">
                   <label class="form-check-label" for="{{s.IsDone}}">{{s.Content}}</label>
                 </div>
               </div>
+              </div>
+              <br>
+              <textarea [(ngModel)]="stepToAdd.Content" class="form-control" rows="2"></textarea>
+              <br>
+              <button (click)="addStep()" class="btn btn-block btn-outline-primary">
+                {{'POST' | translate}} </button>
             </div>
           </div>
-          
+
 
         </div>
-        <div class="modal-footer">
+        <!-- <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">
             <i class="fa fa-ban"> </i> {{'GENERAL.Close' | translate}} </button>
           <button [disabled]="!listToCreate.Name" type="button" class="btn btn-success" data-dismiss="modal" (click)="addList()">
             <i class="fa fa-save"> </i> {{'GENERAL.Save' | translate}} </button>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -211,7 +228,6 @@
                 </li>
               </ul>
             </div>
-            {{ taskToAdd | json }}
           </div>
         </div>
         <div class="modal-footer">
@@ -309,36 +325,36 @@
   </div>
 </div>
 
-  <!-- MODAL: Add New Member to board -->
-  <div class="modal fade" id="new-member-on-board-modal" tabindex="-1" role="dialog" aria-labelledby="new-board-modal"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Creating new board</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">
+<!-- MODAL: Add New Member to board -->
+<div class="modal fade" id="new-member-on-board-modal" tabindex="-1" role="dialog" aria-labelledby="new-board-modal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Creating new board</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
 
-          <div class="input-group input-group-seamless">
-            <div class="input-group-prepend">
-                <div class="input-group-text">
-                    @
-                </div>
+        <div class="input-group input-group-seamless">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              @
             </div>
-            <input type="text" [(ngModel)]="memberToAdd" class="form-control" aria-label="Text input with checkbox">
+          </div>
+          <input type="text" [(ngModel)]="memberToAdd" class="form-control" aria-label="Text input with checkbox">
         </div>
-        
 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">
-            <i class="fa fa-ban"> </i> Cancel </button>
-          <button [disabled]="!memberToAdd" type="button" class="btn btn-success" data-dismiss="modal" (click)="addMember()">
-            <i class="fa fa-save"> </i> Save </button>
-        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          <i class="fa fa-ban"> </i> Cancel </button>
+        <button [disabled]="!memberToAdd" type="button" class="btn btn-success" data-dismiss="modal" (click)="addMember()">
+          <i class="fa fa-save"> </i> Save </button>
       </div>
     </div>
   </div>
+</div>
