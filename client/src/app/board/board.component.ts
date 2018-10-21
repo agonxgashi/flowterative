@@ -10,6 +10,7 @@ import { StepModel } from '../../models/task/step.model';
 import { CommentModel } from '../../models/task/comment.model';
 import { JwtManager } from '../../services/auth/jwt-manager.service';
 import { AppUser } from '../../models/auth/appUser.model';
+import * as tippy from 'tippy.js/dist/tippy.all.min.js';
 
 @Component({
   selector: 'app-board',
@@ -46,6 +47,18 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.filterMyTasksOnly = this.getFilterValue();
   }
 
+  ngAfterViewInit(): void {
+    this.dragulaService.drag.subscribe((value) => {
+    });
+    this.dragulaService.drop.subscribe((value) => {
+      this.onDrop(value.slice(1));
+    });
+ }
+
+  initTooltips() {
+    tippy('.fa-question-circle', { animation: 'dynamic' });
+  }
+
   // Getters
   public get board_lists(): ListModel[] {
     return this.board.Lists;
@@ -76,14 +89,6 @@ export class BoardComponent implements OnInit, AfterViewInit {
       );
   }
 
-  ngAfterViewInit(): void {
-    this.dragulaService.drag.subscribe((value) => {
-    });
-    this.dragulaService.drop.subscribe((value) => {
-      this.onDrop(value.slice(1));
-    });
-
-  }
 
   private onDrop(args) {
     // e      -> Element that was dragged
@@ -144,9 +149,14 @@ export class BoardComponent implements OnInit, AfterViewInit {
   addNewTask() {
     this.taskToAdd.ProjectId = this.boardId;
     this.taskToAdd.ListId = this.board.Backlog._id;  // Id of default list which is backlog
-    this.http.post('/api/task/add-new', this.taskToAdd)
+    this.http.post<ReturnObject>('/api/task/add-new', this.taskToAdd)
       .subscribe(
-        (res) => { this.taskToAdd = new TaskModel(); },
+        (res) => {
+          if (res.success) {
+            this.taskToAdd = new TaskModel();
+            this.board.Backlog.Tasks.push(res.data);
+          }
+         },
         (err) => { }
       );
   }

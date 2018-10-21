@@ -34,6 +34,7 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/tippy.js/dist/tippy.all.min.js",
               "node_modules/webkul-micron/dist/script/micron.min.js",
               "node_modules/ngx-quill/bundles/ngx-quill.umd.js",
               "node_modules/quill/dist/quill.js",

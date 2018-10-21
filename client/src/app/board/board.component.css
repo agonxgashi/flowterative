@@ -8,7 +8,7 @@
 }
 
 .list-content {
-  max-height: calc(100vh - 45px - 47px - 47px - 47px - 45px);
+  max-height: calc(100vh - 144.2px - 45.2px);
   min-height: 10vh;
   overflow-y: auto;
 } 
@@ -47,7 +47,7 @@
 .btn_registerNewRoute{
   border: 1px solid transparent;
 }
-
+/* ******************************* */
 .task-scroable-content{
   height: 35vh; 
   overflow-y: auto;
@@ -63,4 +63,8 @@
     width: auto !important;
     display: inline-block;
     display: flex !important;
+}
+
+ul{
+  list-style: none;
 }

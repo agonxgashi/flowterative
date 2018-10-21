@@ -35,6 +35,7 @@
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.2.1",
     "shards-ui": "^2.0.3",
+    "tippy.js": "^3.0.6",
     "webkul-micron": "^1.1.4",
     "zone.js": "^0.8.26"
   },
