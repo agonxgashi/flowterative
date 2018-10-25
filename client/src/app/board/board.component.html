@@ -1,41 +1,43 @@
 <app-loading *ngIf="isLoadingBoard"></app-loading>
 <div *ngIf="board">
   <div class="row p-0 m-0">
-    <div class="col-md-9 offset-md-3 p-3">
-        <div class="custom-control custom-toggle">
-            <input type="checkbox" [(ngModel)]="filterMyTasksOnly" (change)="setFilterValue()" id="filterMyTasksOnly" class="custom-control-input">
-            <label class="custom-control-label" for="filterMyTasksOnly" *ngIf="!filterMyTasksOnly">{{'TASK.ListAll' | translate}}</label>
-            <label class="custom-control-label" for="filterMyTasksOnly" *ngIf="filterMyTasksOnly">{{'TASK.ListMine' | translate}}</label>
-          </div>
+    <div class="col-md-9 offset-md-2 p-3">
+      <div class="custom-control custom-toggle">
+        <input type="checkbox" [(ngModel)]="filterMyTasksOnly" (change)="setFilterValue()" id="filterMyTasksOnly" class="custom-control-input">
+        <label class="custom-control-label" for="filterMyTasksOnly" *ngIf="!filterMyTasksOnly">{{'TASK.ListAll' |
+          translate}}</label>
+        <label class="custom-control-label" for="filterMyTasksOnly" *ngIf="filterMyTasksOnly">{{'TASK.ListMine' |
+          translate}}</label>
       </div>
-    <div class="col-md-3">
-      <div class="sidebar sidenav col-md-3 bg-light">
+    </div>
+    <div class="col-md-2">
+      <div class="sidebar sidenav col-md-2 bg-light">
         <div id="sss">
-        <div class="d-flex w-100 justify-content-between pt-3">
-          <button type="button" class="btn btn-sm btn-light" [routerLink]="['/boards']">
-            <i class="fa fa-angle-double-left pr-2"></i> {{ 'GENERAL.Back' | translate}}
-          </button>
-          <button type="button" (click)="getBoardDetails()" class="btn btn-sm btn-light" data-toggle="modal"
-            data-target="#board-settings-modal">
-            {{ 'BOARD.Settings' | translate}} <i class="pl-2 fa fa-cog"></i>
-          </button>
+          <div class="d-flex w-100 justify-content-between pt-3">
+            <button type="button" class="btn btn-sm btn-light" [routerLink]="['/boards']">
+              <i class="fa fa-angle-double-left pr-2"></i> {{ 'GENERAL.Back' | translate}}
+            </button>
+            <button type="button" (click)="getBoardDetails()" class="btn btn-sm btn-light" data-toggle="modal"
+              data-target="#board-settings-modal">
+              {{ 'BOARD.Settings' | translate}} <i class="pl-2 fa fa-cog"></i>
+            </button>
 
+          </div>
+          <hr>
+          <div class="d-flex w-100 justify-content-between">
+            <h5>Backlog</h5>
+            <button type="button" (click)="getBoardDetails()" class="btn btn-sm btn-light" data-toggle="modal"
+              data-target="#add-new-task-modal">
+              {{'TASK.New' | translate}} <i class="fa fa-plus pl-2"></i>
+            </button>
+          </div>
+
+          <br>
         </div>
-        <hr>
-        <div class="d-flex w-100 justify-content-between">
-          <h5>Backlog</h5>
-          <button type="button" (click)="getBoardDetails()" class="btn btn-sm btn-light" data-toggle="modal"
-            data-target="#add-new-task-modal">
-            {{'TASK.New' | translate}} <i class="fa fa-plus pl-2"></i>
-          </button>
-        </div>
-        
-        <br>
-      </div>
         <ul class="p-0">
           <li class="" id="{{board.Backlog._id}}" [dragula]='"bag-one"'>
-              <!-- *ngFor="let task of filterTasksOfList(list)" -->
-            <span  *ngFor="let task of filterTasksOfList(board.Backlog)" id="{{task._id}}" href="#" class="list-group-item list-group-item-action align-items-start clickable">
+            <!-- *ngFor="let task of filterTasksOfList(list)" -->
+            <span *ngFor="let task of filterTasksOfList(board.Backlog)" id="{{task._id}}" href="#" class="list-group-item list-group-item-action align-items-start clickable">
               <div class="d-row w-100 justify-content-between ">
                 <!-- Task title -->
                 <h5 class="mb-1 mr-2">
@@ -67,45 +69,65 @@
 
 
 
-    <div *ngIf="board"  class="px-3 py-1 d-flex col-md-9 justify-content-start">
-           
-        <div class="clear"></div>
-      <!-- <pre>{{ board | json}}</pre> -->
-      <!-- FOREACH LIST OF PROJECT -->
+    <div *ngIf="board" class="px-3 py-1 d-flex col-md-9 justify-content-start">
+      <div class="clear"></div>
+
+
+
+
       <div *ngFor="let list of board_lists" class="list-group col-md-3">
-        <span href="#" class="list-group-item list-group-item-action flex-column align-items-start bg-{{board.Color}}">
-          <div class="d-flex w-100 justify-content-between">
-            <h6 class="mb-1 text-light"> {{ list.Name }} {{ list._id }} </h6>
-          </div>
+        <span href="#" class="list-group-item py-2  bg-{{board.Color}}">
+
+            <h5 class="mb-1 text-light"> {{ list.Name }} </h5>
+
         </span>
         <div class="list-content" id="{{list._id}}" [@listAnimation]="filterTasksOfList(list).length" [dragula]='"bag-one"'>
           <!-- FOREACH TASK OF THE LIST -->
-          <span class="task_item" *ngFor="let task of filterTasksOfList(list)" id="{{task._id}}" data-toggle="modal" data-target="#task-details"
-            (click)="getTaskDetails(task._id)" class="list-group-item list-group-item-action flex-column align-items-start clickable">
-            <div class="d-row w-100 justify-content-between ">
+          <p *ngIf="filterTasksOfList(list).length === 0" class="text-center my-5"> 
+            <small>{{'LIST.DROP_TASKS_HERE' | translate}}</small>
+          </p>
+          <div *ngFor="let task of filterTasksOfList(list)" 
+                id="{{task._id}}" 
+                data-toggle="modal"
+                data-target="#task-details" 
+                (click)="getTaskDetails(task._id)" 
+                class="task clickable">
+            <!-- <div class="list-group-item list-group-item-action flex-column "> -->
               <!-- Task title -->
-              <h5 class="mb-1 mr-2">
+              <h6 class="mb-1">
                 {{task.Name}}
-              </h5>
-              <!-- Task autogenerated incremental ID (hashtag) -->
-              <p class="badge badge-pill badge-{{board.Color}} px-2 py-1">
-                {{task._id}}
-              </p>
-            </div>
+              </h6>
             <!-- Task description -->
-            <p class="mb-1 mt-1 text-muted">
+            <!-- <p class="mb-1 mt-1 text-muted">
               {{task.Description}}
-            </p>
-            <div class="d-flex justify-content-between mt-3">
+            </p> -->
+            <div class="d-flex justify-content-end mt-3">
               <!-- Task Due date -->
-              <small class="text-muted">
-                Due: {{task.DueDate | date}}
+              <small class="text-muted pr-1" *ngIf="task.Description">
+                <i class="fa fa-align-left "></i>
               </small>
+              <small class="text-muted pr-1" *ngIf="task.DueDate">
+                <i class="fa fa-calendar "></i>
+              </small>
+              <small class="text-muted pr-1" *ngIf="task.Members.length != 0">
+                <i class="fa fa-user "></i>
+              </small>
+              <small class="text-muted pr-1" *ngIf="task.Steps.length != 0">
+                <i class="fa fa-list-ul "></i>
+              </small>
+              <!-- <small class="text-muted" *ngIf="task.DueDate">
+                Due: {{task.DueDate | date}}
+              </small> -->
               <!-- Task tags represented by selected colors -->
             </div>
-          </span>
+          <!-- </div> -->
+          </div>
         </div>
       </div>
+
+
+
+
     </div>
   </div>
 
@@ -129,28 +151,28 @@
               <b> {{'TASK.StartDate' | translate}}: </b> <span> {{selectedTask.StartDate | date}} </span>
               <br>
               <b> {{'TASK.DueDate' | translate}}: </b> <span> {{selectedTask.DueDate | date}} </span>
-              
+
             </div>
             <div class="col-md-4">
               <button class="btn btn-primary pull-right"> {{'TASK.Members' | translate}} </button>
             </div>
-            
+
             <br>
             <div class="col-md-12">
               <hr>
             </div>
             <div class="col-md-8">
               <h5>{{'TASK.Comments' | translate}}</h5>
-              
+
               <div class="commentSection task-scroable-content">
-                  <small *ngIf="selectedTask.Comments.length == 0">
-                      {{ 'TASK.NoComments' | translate}}
-                    </small>
+                <small *ngIf="selectedTask.Comments.length == 0">
+                  {{ 'TASK.NoComments' | translate}}
+                </small>
                 <div class="col-md-12 p-1" *ngFor="let c of selectedTask.Comments">
                   <div class="col-md-12 comment">
-                  <markdown> {{c.Content}} </markdown>
-                  <i class="text-right"> {{c.CreateDate | date}} <label> @{{c.CreatedBy.Username}}</label> </i> 
-                </div>
+                    <markdown> {{c.Content}} </markdown>
+                    <i class="text-right"> {{c.CreateDate | date}} <label> @{{c.CreatedBy.Username}}</label> </i>
+                  </div>
                 </div>
               </div>
               <br>
@@ -161,15 +183,15 @@
                 {{'POST' | translate}} </button>
             </div>
             <div class="col-md-4">
-              
+
               <h5>{{'TASK.Steps' | translate}}</h5>
               <div class="task-scroable-content">
-              <div class="col-md-12" *ngFor="let s of selectedTask.Steps">
-                <div class="form-check">
-                  <input class="form-check-input" id="{{s.IsDone}}" type="checkbox" [(ngModel)]="s.IsDone">
-                  <label class="form-check-label" for="{{s.IsDone}}">{{s.Content}}</label>
+                <div class="col-md-12" *ngFor="let s of selectedTask.Steps">
+                  <div class="form-check">
+                    <input class="form-check-input" id="{{s.IsDone}}" type="checkbox" [(ngModel)]="s.IsDone">
+                    <label class="form-check-label" for="{{s.IsDone}}">{{s.Content}}</label>
+                  </div>
                 </div>
-              </div>
               </div>
               <br>
               <textarea [(ngModel)]="stepToAdd.Content" class="form-control" rows="2"></textarea>
@@ -249,7 +271,47 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-md-6 text-center">
+              <div class="nav flex-column nav-pills col-md-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                  <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">{{'GENERAL.General' | translate}}</a>
+                  <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">{{'LIST.Lists' | translate}}</a>
+                  <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">{{'TASK.Members' | translate}}</a>
+                </div>
+                <div class="tab-content col-md-9 pl-3" id="v-pills-tabContent">
+                  <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                      <label for="">{{'BOARD.Name' | translate}}</label>
+                      <br>
+                      <input type="text" [(ngModel)]="board.Name" class="form-control">
+                      <br>
+                      <label for="">{{'BOARD.Description' | translate}}</label>
+                      <br>
+                      <textarea class="form-control" [(ngModel)]="board.Description" cols="30" rows="5"></textarea>
+                      <br>
+                      <br>
+                      <div class="col-md-12 p-0 m-0">
+                        <button type="button" class="btn btn-primary pull-right col-md-4" data-dismiss="modal">
+                          <i class="fa fa-save pr-2"> </i> {{'GENERAL.Save' | translate}} </button>
+                        </div>
+                  </div>
+                  <div class="tab-pane fade text-center" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                      <small class="text-muted">
+                          Arrange list order by draging below containers
+                        </small>
+                        <br>
+                        <br>
+                        <div class="col-md-12" [dragula]='"bag-board-list-arrange"'>
+                          <div class="bg-light p-4 mb-1 rounded text-center" *ngFor="let list of board_lists">
+                            {{list.Name}}
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label data-toggle="modal" (click)="initTooltips()" data-target="#new-board-modal" class="p-3 btn btn-outline-primary btn-block mt-2 rounded  text-center">
+                              {{'LIST.CreateNew' | translate}}
+                            </label>
+                          </div>
+                  </div>
+                  <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+                </div>
+            <!-- <div class="col-md-6 text-center">
               <small class="text-muted">
                 Arrange list order by draging below containers
               </small>
@@ -280,19 +342,19 @@
               <label for="">{{'BOARD.Description' | translate}}</label>
               <br>
               <textarea class="form-control" [(ngModel)]="board.Description" cols="30" rows="10"></textarea>
-            </div>
+            </div> -->
           </div>
         </div>
-        <div class="modal-footer">
+        <!-- <div class="modal-footer">
           <button type="button" class="btn btn-outline-danger col-md-3" data-dismiss="modal">
             <i class="fa fa-ban pr-2"> </i> {{'GENERAL.Close' | translate}} </button>
           <button type="button" class="btn btn-primary col-md-3" data-dismiss="modal">
             <i class="fa fa-save pr-2"> </i> {{'GENERAL.Save' | translate}} </button>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
-  
+
 
   <!-- MODAL: Create new list -->
   <div class="modal fade" id="new-board-modal" tabindex="-1" role="dialog" aria-labelledby="new-board-modal"
@@ -302,26 +364,27 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-md-8">
-                <label for="">{{'LIST.Name' | translate}}</label>
-                <input type="text" [(ngModel)]="listToCreate.Name" name="listToCreateName" class="form-control">
+              <label for="">{{'LIST.Name' | translate}}</label>
+              <input type="text" [(ngModel)]="listToCreate.Name" name="listToCreateName" class="form-control">
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label for="wip">WIP Limit 
-                  <i class="fa fa-question-circle" data-tippy-content="Work in progress (WIP) limits restrict the maximum amount of work items in the different stages (kanban board columns) of the workflow. The implementation of WIP limits allows you to complete single work items faster, by helping your team to focus only on current tasks."></i> 
+                <label for="wip">WIP Limit
+                  <i class="fa fa-question-circle" data-tippy-content="Work in progress (WIP) limits restrict the maximum amount of work items in the different stages (kanban board columns) of the workflow. The implementation of WIP limits allows you to complete single work items faster, by helping your team to focus only on current tasks."></i>
                 </label>
                 <input type="number" class="form-control" name="wip" id="wip" aria-describedby="helpId" placeholder="wip">
               </div>
             </div>
-              
+
           </div>
-          
+
 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-danger col-md-4" data-dismiss="modal">
             <i class="fa fa-ban"> </i> {{'GENERAL.Cancel' | translate}} </button>
-          <button [disabled]="!listToCreate.Name" type="button" class="btn btn-success col-md-4" data-dismiss="modal" (click)="addList()">
+          <button [disabled]="!listToCreate.Name" type="button" class="btn btn-success col-md-4" data-dismiss="modal"
+            (click)="addList()">
             <i class="fa fa-save"> </i> {{'GENERAL.Save' | translate}} </button>
         </div>
       </div>

@@ -4,7 +4,8 @@
     "Cancel": "Cancel",
     "Save": "Save",
     "Back": "Back",
-    "Close": "Close"
+    "Close": "Close",
+    "General": "General"
   },
   "RESPONSE": {
     "ERR_INVALID_CREDENTIALS": "Invalid credentials!",
@@ -23,7 +24,6 @@
     "REGISTER_HERE": "Don't have an account? Click here to register!"
   },
   "MSG": {
-    "WIP-Helper": "Work in progress (WIP) limits restrict the maximum amount of work items in the different stages (kanban board columns) of the workflow. The implementation of WIP limits allows you to complete single work items faster, by helping your team to focus only on current tasks."
   },
   "BOARD": {
     "MyBoards": "Boards",
@@ -51,8 +51,10 @@
     "ListMine": "My tasks"
   },
   "LIST": {
+    "Lists": "Lists",
     "Name": "List Name",
-    "CreateNew": "Create new list"
+    "CreateNew": "Create new list",
+    "DROP_TASKS_HERE": "Drop tasks here"
   },
   "COLOR": {
     "Red": "Red",

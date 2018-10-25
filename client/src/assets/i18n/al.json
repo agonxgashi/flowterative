@@ -4,7 +4,8 @@
     "Cancel": "Ndërprej",
     "Save": "Ruaj",
     "Back": "Prapa",
-    "Close": "Mbyll"
+    "Close": "Mbyll",
+    "General": "Gjenerale"
   },
   "RESPONSE": {
     "ERR_INVALID_CREDENTIALS": "Kredenciale të gabuara!",
@@ -49,8 +50,10 @@
     "ListMine": "Detyrat e mia"
   },
   "LIST": {
+    "Lists": "Listat",
     "Name": "Emri i listës",
-    "CreateNew": "Shto listë të re"
+    "CreateNew": "Shto listë të re",
+    "DROP_TASKS_HERE": "Shto detyra këtu"
   },
   "COLOR": {
     "Red": "Kuq",

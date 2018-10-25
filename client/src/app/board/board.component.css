@@ -9,9 +9,20 @@
 
 .list-content {
   max-height: calc(100vh - 144.2px - 45.2px);
-  min-height: 10vh;
+  /* min-height: 10vh; */
   overflow-y: auto;
+  background-color: #e9ecef;
+  padding: 0px .7em;
+  transition:height 3.3s ease-out;
 } 
+
+.task{
+  background-color: white;
+  padding: 1em;
+  margin: .7em 0px;
+  border-radius: 5px;
+  box-shadow: 0 1px 0 #909090;
+}
 
 .list-content::-webkit-scrollbar{
   width: 0 !important;
