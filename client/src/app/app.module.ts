@@ -5,6 +5,7 @@ import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 // Costum Components
 import { AppComponent } from './app.component';
@@ -63,6 +64,7 @@ import { LoadingManager } from '../services/UI/loading.service';
     BrowserModule,
     HttpModule,
     HttpClientModule,
+    BrowserAnimationsModule, 
     RouterModule.forRoot(appRoutes),
     MarkdownModule.forRoot(),
     TranslateModule.forRoot({
