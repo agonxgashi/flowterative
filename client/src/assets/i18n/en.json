@@ -61,5 +61,9 @@
     "Blue": "Blue",
     "Green": "Green",
     "Yellow": "Yellow"
+  },
+  "BLOG": {
+    "Posts": "Posts",
+    "Write": "Write"
   }
 }
