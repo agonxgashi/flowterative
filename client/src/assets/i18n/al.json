@@ -59,6 +59,29 @@
     "NoComments": "Asnjë koment",
     "StartDate": "Filluar",
     "Steps": "Hapat",
+<<<<<<< HEAD
     "Title": "Titulli"
+=======
+    "Members": "Anëtarët",
+    "Assign": "Ngarko personit",
+    "ListAll": "Të gjitha detyrat",
+    "ListMine": "Detyrat e mia"
+  },
+  "LIST": {
+    "Lists": "Listat",
+    "Name": "Emri i listës",
+    "CreateNew": "Shto listë të re",
+    "DROP_TASKS_HERE": "Shto detyra këtu"
+  },
+  "COLOR": {
+    "Red": "Kuq",
+    "Blue": "Kaltër",
+    "Green": "Gjelbër",
+    "Yellow": "Verdhë"
+  },
+  "BLOG": {
+    "Posts": "Postimet",
+    "Write": "Shkruaj"
+>>>>>>> fb120b1678be73da1918877ed5c381124aab0de6
   }
 }

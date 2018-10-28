@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<!-- <div class="col-md-12">
     <div *ngFor="let post of blogposts_list">
         <div class="card-body">
           <h4 class="card-title">{{post.Title}}</h4>
@@ -6,7 +6,29 @@
           <a href="#" class="btn btn-primary">Tell me more &rarr;</a>
         </div>
       </div>
+</div> -->
+<div class="pt-5">
+<div class="col-md-10 offset-md-1">
+  <div class="row p-0 m-0">
+  <div class="col-md-8 p-0">
+    <h3 class="text-secondary">{{'BLOG.Posts' | translate}}</h3>
+  </div>
+  <div class="col-md-4">
+    <button [routerLink]="['/blog/post']" class="btn btn-outline-primary btn-block">{{'BLOG.Write' | translate}}</button>
+  </div>
 </div>
-
-
+  <hr>
+  <div class="row">
+    <div class="col-md-3 p-2" *ngFor="let b of blogposts_list">
+      <a class="d-inline-block col-md-12 p-3 bg-primary rounded clickable">
+        <h5 class="mb-1 text-light"> {{ b.Title | truncate:40 }} </h5>
+        <br>
+        <label class="badge badge-sm badge-primary  pull-right"> @{{ b.createdBy | date }}</label>
+        <!-- <br>
+        <label class="btn btn-light btn-block">Read more</label> -->
+      </a>
+    </div>
+  </div>
+</div> 
+</div>
 
