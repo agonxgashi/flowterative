@@ -10,7 +10,6 @@ const mongoose  = require('mongoose');
 // • Declaring POST method to get boards from Db
 router.get('/:user', function (req, res) {
     const userId = req.params.user;
-    console.log(userId);
     Board.find({
         // Created by or is a member
         $or: [{"CreatedBy": userId}, {"Members": userId}]},

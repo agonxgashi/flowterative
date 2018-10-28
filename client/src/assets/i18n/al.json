@@ -1,64 +1,64 @@
 {
-  "GENERAL": {
-    "Search": "Kërko",
-    "Cancel": "Ndërprej",
-    "Save": "Ruaj",
-    "Back": "Prapa",
-    "Close": "Mbyll",
-    "General": "Gjenerale"
-  },
-  "RESPONSE": {
-    "ERR_INVALID_CREDENTIALS": "Kredenciale të gabuara!",
-    "ERR_LOGIN_NOCREDS": "Ju lutem mbushni fushat e kërkuara!"
-  },
   "AUTH": {
-    "Name": "Emri",
-    "Surname": "Mbiemri",
     "Email": "Email",
-    "Username": "Shfrytëzuesi",
-    "Password": "Fjalëkalimi",
     "LOGIN": "Kyqu",
-    "SIGNUP": "Registrohu"
+    "Name": "Emri",
+    "Password": "Fjalëkalimi",
+    "SIGNUP": "Registrohu",
+    "Surname": "Mbiemri",
+    "Username": "Shfrytëzuesi"
+  },
+  "BOARD": {
+    "AddMember": "Shto anëtarë",
+    "Color": "Ngjyra",
+    "CreateNew": "Krijo Projekt të Ri",
+    "Description": "Përshkrimi i Projektit",
+    "Members": "antarë",
+    "MyBoards": "Projektet",
+    "Name": "Emri i Projektit",
+    "Settings": "Rregullimet e projektit"
+  },
+  "COLOR": {
+    "Blue": "Kaltër",
+    "Green": "Gjelbër",
+    "Red": "Kuq",
+    "Yellow": "Verdhë"
+  },
+  "GENERAL": {
+    "Back": "Prapa",
+    "Cancel": "Ndërprej",
+    "Close": "Mbyll",
+    "General": "Gjenerale",
+    "Save": "Ruaj",
+    "Search": "Kërko"
   },
   "LBL": {
     "REGISTER_HERE": "Nuk keni llogari? Klikoni këtu për tu regjistruar!"
   },
+  "LIST": {
+    "CreateNew": "Shto listë të re",
+    "DROP_TASKS_HERE": "Shto detyra këtu",
+    "Lists": "Listat",
+    "Name": "Emri i listës"
+  },
   "MSG": {},
-  "BOARD": {
-    "MyBoards": "Projektet",
-    "Name": "Emri i Projektit",
-    "Description": "Përshkrimi i Projektit",
-    "CreateNew": "Krijo Projekt të Ri",
-    "Members": "antarë",
-    "Color": "Ngjyra",
-    "Settings": "Rregullimet e projektit",
-    "AddMember": "Shto anëtarë"
+  "RESPONSE": {
+    "ERR_INVALID_CREDENTIALS": "Kredenciale të gabuara!",
+    "ERR_LOGIN_NOCREDS": "Ju lutem mbushni fushat e kërkuara!"
   },
   "TASK": {
-    "Title": "Titulli",
-    "Description": "Përshkrimi",
-    "New": "Detyre e re",
+    "Assign": "Ngarko personit",
     "Comments": "Komentet",
-    "NoComments": "Asnjë koment",
-    "FromDate": "Prej",
+    "Description": "Përshkrimi",
     "DueDate": "Deri",
+    "FromDate": "Prej",
+    "ListAll": "Të gjitha detyrat",
+    "ListMine": "Detyrat e mia",
+    "Members": "Anëtarët",
+    "New": "Detyre e re",
+    "NoComments": "Asnjë koment",
     "StartDate": "Filluar",
     "Steps": "Hapat",
-    "Members": "Anëtarët",
-    "Assign": "Ngarko personit",
-    "ListAll": "Të gjitha detyrat",
-    "ListMine": "Detyrat e mia"
-  },
-  "LIST": {
-    "Lists": "Listat",
-    "Name": "Emri i listës",
-    "CreateNew": "Shto listë të re",
-    "DROP_TASKS_HERE": "Shto detyra këtu"
-  },
-  "COLOR": {
-    "Red": "Kuq",
-    "Blue": "Kaltër",
-    "Green": "Gjelbër",
-    "Yellow": "Verdhë"
+    "Title": "Titulli"
   }
 }

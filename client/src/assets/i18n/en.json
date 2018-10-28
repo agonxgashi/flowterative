@@ -1,65 +1,64 @@
 {
-  "GENERAL": {
-    "Search": "Search",
-    "Cancel": "Cancel",
-    "Save": "Save",
-    "Back": "Back",
-    "Close": "Close",
-    "General": "General"
-  },
-  "RESPONSE": {
-    "ERR_INVALID_CREDENTIALS": "Invalid credentials!",
-    "ERR_LOGIN_NOCREDS": "Please fill required fields!"
-  },
   "AUTH": {
-    "Name": "Name",
-    "Surname": "Surname",
     "Email": "Email",
-    "Username": "Username",
-    "Password": "Password",
     "LOGIN": "LOG IN",
-    "SIGNUP": "SIGN UP"
+    "Name": "Name",
+    "Password": "Password",
+    "SIGNUP": "SIGN UP",
+    "Surname": "Surname",
+    "Username": "Username"
+  },
+  "BOARD": {
+    "AddMember": "Add member",
+    "Color": "Color",
+    "CreateNew": "Create New Board",
+    "Description": "Board Description",
+    "Members": "members",
+    "MyBoards": "Boards",
+    "Name": "Board Name",
+    "Settings": "Board Settings"
+  },
+  "COLOR": {
+    "Blue": "Blue",
+    "Green": "Green",
+    "Red": "Red",
+    "Yellow": "Yellow"
+  },
+  "GENERAL": {
+    "Back": "Back",
+    "Cancel": "Cancel",
+    "Close": "Close",
+    "General": "General",
+    "Save": "Save",
+    "Search": "Search"
   },
   "LBL": {
     "REGISTER_HERE": "Don't have an account? Click here to register!"
   },
-  "MSG": {
+  "LIST": {
+    "CreateNew": "Create new list",
+    "DROP_TASKS_HERE": "Drop tasks here",
+    "Lists": "Lists",
+    "Name": "List Name"
   },
-  "BOARD": {
-    "MyBoards": "Boards",
-    "Name": "Board Name",
-    "Description": "Board Description",
-    "CreateNew": "Create New Board",
-    "Members": "members",
-    "Color": "Color",
-    "Settings": "Board Settings",
-    "AddMember": "Add member"
+  "MSG": {},
+  "RESPONSE": {
+    "ERR_INVALID_CREDENTIALS": "Invalid credentials!",
+    "ERR_LOGIN_NOCREDS": "Please fill required fields!"
   },
   "TASK": {
-    "Title": "Title",
-    "Description": "Description",
-    "New": "New Task",
+    "Assign": "Assign",
     "Comments": "Comments",
-    "NoComments": "No comments",
-    "FromDate": "From",
+    "Description": "Description",
     "DueDate": "Due",
+    "FromDate": "From",
+    "ListAll": "All tasks",
+    "ListMine": "My tasks",
+    "Members": "Members",
+    "New": "New Task",
+    "NoComments": "No comments",
     "StartDate": "Started",
     "Steps": "Steps",
-    "Members": "Members",
-    "Assign": "Assign",
-    "ListAll": "All tasks",
-    "ListMine": "My tasks"
-  },
-  "LIST": {
-    "Lists": "Lists",
-    "Name": "List Name",
-    "CreateNew": "Create new list",
-    "DROP_TASKS_HERE": "Drop tasks here"
-  },
-  "COLOR": {
-    "Red": "Red",
-    "Blue": "Blue",
-    "Green": "Green",
-    "Yellow": "Yellow"
+    "Title": "Title"
   }
 }

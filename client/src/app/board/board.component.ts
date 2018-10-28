@@ -10,7 +10,7 @@ import { StepModel } from '../../models/task/step.model';
 import { CommentModel } from '../../models/task/comment.model';
 import { JwtManager } from '../../services/auth/jwt-manager.service';
 import { AppUser } from '../../models/auth/appUser.model';
-import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
+import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
 import * as tippy from 'tippy.js/dist/tippy.all.min.js';
 
 @Component({
@@ -37,6 +37,13 @@ import * as tippy from 'tippy.js/dist/tippy.all.min.js';
             style({opacity: 0, transform: 'translateY(-75%)',     offset: 1.0}),
           ]))]), {optional: true})
       ])
+    ]),
+    trigger('grow', [
+      transition('void <=> *', []),
+      transition('* <=> *', [
+        style({height: '{{startHeight}}px', opacity: 0}),
+        animate('.5s ease'),
+      ], {params: {startHeight: 0}})
     ])
 
   ]
@@ -72,8 +79,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.dragulaService.drag.subscribe((value) => {
-    });
+    this.dragulaService.drag.subscribe((value) => { });
     this.dragulaService.drop.subscribe((value) => {
       this.onDrop(value.slice(1));
     });
@@ -155,7 +161,11 @@ export class BoardComponent implements OnInit, AfterViewInit {
   moveTask(taskId: string, listId: string) {
     this.http.get<ReturnObject>(`/api/task/move/${taskId}/${listId}`)
       .subscribe(
-        (res) => { },
+        (res) => {
+          if (res.success) {
+            // this.board.Lists.slice(this.board.Lists.indexOf(task))
+          }
+        },
         (err) => {
           alert('Error');
         }
@@ -166,7 +176,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.selectedTask = undefined;
     this.http.get<ReturnObject>('/api/task/details/' + taskId)
       .subscribe(
-        (res) => { this.selectedTask = res.data;}
+        (res) => { this.selectedTask = res.data; }
       );
   }
 
