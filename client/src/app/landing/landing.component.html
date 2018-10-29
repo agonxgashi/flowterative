@@ -48,14 +48,14 @@
 
 
 
-<!-- Modal -->
+<!-- REGISTER MODAL -->
 <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-body">
 
         <div class="row">
-          <div class="needs-validation">
+          <div class="col-md-12 needs-validation">
             <div class="form-row">
               <div class="col-md-6 mb-3">
                 <label for="validationCustom01">{{'AUTH.Name' | translate}}</label>
@@ -78,14 +78,14 @@
             <div class="form-row">
               <div class="col-md-12 mb-3">
                 <label for="validationCustom03">{{'AUTH.Username' | translate}}</label>
-                <input type="text" class="form-control" [(ngModel)]="userToRegister.Username">
+                <input type="text" name="usernameToRegister" class="form-control" [(ngModel)]="userToRegister.Username">
               </div>
             </div>
 
             <div class="form-row">
               <div class="col-md-12 mb-3">
                 <label for="validationCustom03">{{'AUTH.Password' | translate}}</label>
-                <input type="password" class="form-control" [(ngModel)]="userToRegister.Password">
+                <input type="password" name="passwordToRegister" class="form-control" [(ngModel)]="userToRegister.Password">
               </div>
             </div>
 
