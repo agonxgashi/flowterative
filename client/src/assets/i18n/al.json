@@ -1,67 +1,49 @@
 {
-  "AUTH": {
-    "Email": "Email",
-    "LOGIN": "Kyqu",
-    "Name": "Emri",
-    "Password": "Fjalëkalimi",
-    "SIGNUP": "Registrohu",
-    "Surname": "Mbiemri",
-    "Username": "Shfrytëzuesi"
-  },
-  "BOARD": {
-    "AddMember": "Shto anëtarë",
-    "Color": "Ngjyra",
-    "CreateNew": "Krijo Projekt të Ri",
-    "Description": "Përshkrimi i Projektit",
-    "Members": "antarë",
-    "MyBoards": "Projektet",
-    "Name": "Emri i Projektit",
-    "Settings": "Rregullimet e projektit"
-  },
-  "COLOR": {
-    "Blue": "Kaltër",
-    "Green": "Gjelbër",
-    "Red": "Kuq",
-    "Yellow": "Verdhë"
-  },
   "GENERAL": {
-    "Back": "Prapa",
+    "Search": "Kërko",
     "Cancel": "Ndërprej",
-    "Close": "Mbyll",
-    "General": "Gjenerale",
     "Save": "Ruaj",
-    "Search": "Kërko"
+    "Back": "Prapa",
+    "Close": "Mbyll",
+    "General": "Gjenerale"
   },
-  "LBL": {
-    "REGISTER_HERE": "Nuk keni llogari? Klikoni këtu për tu regjistruar!"
-  },
-  "LIST": {
-    "CreateNew": "Shto listë të re",
-    "DROP_TASKS_HERE": "Shto detyra këtu",
-    "Lists": "Listat",
-    "Name": "Emri i listës"
-  },
-  "MSG": {},
   "RESPONSE": {
     "ERR_INVALID_CREDENTIALS": "Kredenciale të gabuara!",
     "ERR_LOGIN_NOCREDS": "Ju lutem mbushni fushat e kërkuara!"
   },
+  "AUTH": {
+    "Name": "Emri",
+    "Surname": "Mbiemri",
+    "Email": "Email",
+    "Username": "Shfrytëzuesi",
+    "Password": "Fjalëkalimi",
+    "LOGIN": "Kyqu",
+    "SIGNUP": "Registrohu"
+  },
+  "LBL": {
+    "REGISTER_HERE": "Nuk keni llogari? Klikoni këtu për tu regjistruar!"
+  },
+  "MSG": {},
+  "BOARD": {
+    "MyBoards": "Projektet",
+    "Name": "Emri i Projektit",
+    "Description": "Përshkrimi i Projektit",
+    "CreateNew": "Krijo Projekt të Ri",
+    "Members": "antarë",
+    "Color": "Ngjyra",
+    "Settings": "Rregullimet e projektit",
+    "AddMember": "Shto anëtarë"
+  },
   "TASK": {
-    "Assign": "Ngarko personit",
-    "Comments": "Komentet",
+    "Title": "Titulli",
     "Description": "Përshkrimi",
-    "DueDate": "Deri",
-    "FromDate": "Prej",
-    "ListAll": "Të gjitha detyrat",
-    "ListMine": "Detyrat e mia",
-    "Members": "Anëtarët",
     "New": "Detyre e re",
+    "Comments": "Komentet",
     "NoComments": "Asnjë koment",
+    "FromDate": "Prej",
+    "DueDate": "Deri",
     "StartDate": "Filluar",
     "Steps": "Hapat",
-<<<<<<< HEAD
-    "Title": "Titulli"
-=======
     "Members": "Anëtarët",
     "Assign": "Ngarko personit",
     "ListAll": "Të gjitha detyrat",
@@ -82,6 +64,5 @@
   "BLOG": {
     "Posts": "Postimet",
     "Write": "Shkruaj"
->>>>>>> fb120b1678be73da1918877ed5c381124aab0de6
   }
 }

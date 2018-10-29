@@ -1,67 +1,50 @@
 {
-  "AUTH": {
-    "Email": "Email",
-    "LOGIN": "LOG IN",
-    "Name": "Name",
-    "Password": "Password",
-    "SIGNUP": "SIGN UP",
-    "Surname": "Surname",
-    "Username": "Username"
-  },
-  "BOARD": {
-    "AddMember": "Add member",
-    "Color": "Color",
-    "CreateNew": "Create New Board",
-    "Description": "Board Description",
-    "Members": "members",
-    "MyBoards": "Boards",
-    "Name": "Board Name",
-    "Settings": "Board Settings"
-  },
-  "COLOR": {
-    "Blue": "Blue",
-    "Green": "Green",
-    "Red": "Red",
-    "Yellow": "Yellow"
-  },
   "GENERAL": {
-    "Back": "Back",
+    "Search": "Search",
     "Cancel": "Cancel",
-    "Close": "Close",
-    "General": "General",
     "Save": "Save",
-    "Search": "Search"
+    "Back": "Back",
+    "Close": "Close",
+    "General": "General"
   },
-  "LBL": {
-    "REGISTER_HERE": "Don't have an account? Click here to register!"
-  },
-  "LIST": {
-    "CreateNew": "Create new list",
-    "DROP_TASKS_HERE": "Drop tasks here",
-    "Lists": "Lists",
-    "Name": "List Name"
-  },
-  "MSG": {},
   "RESPONSE": {
     "ERR_INVALID_CREDENTIALS": "Invalid credentials!",
     "ERR_LOGIN_NOCREDS": "Please fill required fields!"
   },
+  "AUTH": {
+    "Name": "Name",
+    "Surname": "Surname",
+    "Email": "Email",
+    "Username": "Username",
+    "Password": "Password",
+    "LOGIN": "LOG IN",
+    "SIGNUP": "SIGN UP"
+  },
+  "LBL": {
+    "REGISTER_HERE": "Don't have an account? Click here to register!"
+  },
+  "MSG": {
+  },
+  "BOARD": {
+    "MyBoards": "Boards",
+    "Name": "Board Name",
+    "Description": "Board Description",
+    "CreateNew": "Create New Board",
+    "Members": "members",
+    "Color": "Color",
+    "Settings": "Board Settings",
+    "AddMember": "Add member"
+  },
   "TASK": {
-    "Assign": "Assign",
-    "Comments": "Comments",
+    "Title": "Title",
     "Description": "Description",
-    "DueDate": "Due",
-    "FromDate": "From",
-    "ListAll": "All tasks",
-    "ListMine": "My tasks",
-    "Members": "Members",
     "New": "New Task",
+    "Comments": "Comments",
     "NoComments": "No comments",
+    "FromDate": "From",
+    "DueDate": "Due",
     "StartDate": "Started",
     "Steps": "Steps",
-<<<<<<< HEAD
-    "Title": "Title"
-=======
     "Members": "Members",
     "Assign": "Assign",
     "ListAll": "All tasks",
@@ -82,6 +65,5 @@
   "BLOG": {
     "Posts": "Posts",
     "Write": "Write"
->>>>>>> fb120b1678be73da1918877ed5c381124aab0de6
   }
 }
