@@ -66,7 +66,6 @@ router.post('/comment/:taskId', function(req, res) {
 router.post('/add-step/:taskId', function(req, res) {
     const taskId  = req.params.taskId;
     const step = req.body;
-    console.log(step);
     TaskRepo.findByIdAndUpdate(
         { "_id" : taskId },
         { $push:  { "Steps" : step }},
@@ -74,7 +73,6 @@ router.post('/add-step/:taskId', function(req, res) {
         (err, result) => {
             if (err) { res.send(new ReturnObj(false, "STEP_NOT_ADDED", 200, null)) }
             else {
-                console.log(result);
                 res.send(new ReturnObj(true, "STEP_ADDED", 200, result.Steps));
             }
         }

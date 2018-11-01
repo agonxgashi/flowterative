@@ -72,7 +72,10 @@ router.post('/', function (req, res) {
     const _board = new Board(req.body);
     _board.save(err => {
         if (err) return res.status(500).send(err);
-        return Board.find(function (err, allBoards) {
+        return Board.find({
+            // Created by or is a member
+            $or: [{"CreatedBy": _board.CreatedBy}, {"Members": _board.CreatedBy}]},
+            function (err, allBoards) {
             if (err)
                 res.status(500).send(new ReturnObj(false, "ERR_SOMETHING_WENT_WRONG", 500, null));
             res.status(200).send(new ReturnObj(true, "MSG_BOARD_SAVED", 200, allBoards));

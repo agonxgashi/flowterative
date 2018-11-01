@@ -26,7 +26,7 @@
           <hr>
           <div class="d-flex w-100 justify-content-between">
             <h5>Backlog</h5>
-            <button type="button" (click)="getBoardDetails()" class="btn btn-sm btn-light" data-toggle="modal"
+            <button type="button" class="btn btn-sm btn-light" data-toggle="modal"
               data-target="#add-new-task-modal">
               {{'TASK.New' | translate}} <i class="fa fa-plus pl-2"></i>
             </button>
@@ -35,11 +35,13 @@
           <br>
         </div>
         <ul class="p-0">
-          <li class="backlog-content" id="{{board.Backlog._id}}" [dragula]='"bag-one"'>
-            <!-- *ngFor="let task of filterTasksOfList(list)" -->
+          <li class="backlog-content" [@listAnimation]="filterTasksOfList(board.Backlog).length" id="{{board.Backlog._id}}"
+            [dragula]='"bag-one"'>
+            <!-- -------------------------------------------------------------------------------------------------------- -->
+            <!-- FOREACH TASK OF BACKLOG -->
+            <!-- -------------------------------------------------------------------------------------------------------- -->
             <div *ngFor="let task of filterTasksOfList(board.Backlog)" id="{{task._id}}" data-toggle="modal"
               data-target="#task-details" (click)="getTaskDetails(task._id)" class="task clickable text-left">
-              <!-- Task title -->
               <h6 class="mb-1"> {{task.Name}} </h6>
               <div class="d-flex justify-content-end mt-3">
                 <small class="text-muted pr-1" *ngIf="task.Description">
@@ -56,10 +58,6 @@
                 </small>
               </div>
             </div>
-
-
-
-
           </li>
         </ul>
       </div>
@@ -69,21 +67,19 @@
 
     <div *ngIf="board" class="px-3 py-1 d-flex col-md-9 justify-content-start lists-wrapper">
       <div class="clear"></div>
-
-
-
-
+      <!-- -------------------------------------------------------------------------------------------------------- -->
+      <!-- FOREACH LIST OF THIS BOARD -->
+      <!-- -------------------------------------------------------------------------------------------------------- -->
       <div *ngFor="let list of board_lists" class="list-group col-md-3">
         <span href="#" class="list-group-item py-2  bg-{{board.Color}}">
-
           <h5 class="mb-1 text-light"> {{ list.Name }} </h5>
-
         </span>
         <div class="list-content" id="{{list._id}}" [@listAnimation]="filterTasksOfList(list).length" [dragula]='"bag-one"'>
-
+          <!-- -------------------------------------------------------------------------------------------------------- -->
+          <!-- FOREACH TASK OF THIS LIST -->
+          <!-- -------------------------------------------------------------------------------------------------------- -->
           <div *ngFor="let task of filterTasksOfList(list)" id="{{task._id}}" data-toggle="modal" data-target="#task-details"
             (click)="getTaskDetails(task._id)" class="task clickable text-left">
-            <!-- Task title -->
             <h6 class="mb-1"> {{task.Name}} </h6>
             <div class="d-flex justify-content-end mt-3">
               <small class="text-muted pr-1" *ngIf="task.Description">
@@ -102,10 +98,6 @@
           </div>
         </div>
       </div>
-
-
-
-
     </div>
   </div>
 
@@ -120,28 +112,21 @@
           </button>
         </div>
         <div class="modal-body">
-
           <app-loading *ngIf="!selectedTask"></app-loading>
           <div *ngIf="selectedTask" class="row p-0 m-0">
-            <div class="col-md-8">
-              <span> {{selectedTask.Description}}</span>
-              <br>
-              <b> {{'TASK.StartDate' | translate}}: </b> <span> {{selectedTask.StartDate | date}} </span>
-              <br>
-              <b> {{'TASK.DueDate' | translate}}: </b> <span> {{selectedTask.DueDate | date}} </span>
+            
+            <div class="col-md-12 task-section">
+                <!-- <div class="col-md-8"> -->
+                    <span> {{selectedTask.Description}}</span>
+                    <br>
+                    <b> {{'TASK.StartDate' | translate}}: </b> <span> {{selectedTask.StartDate | date}} </span>
+                    <br>
+                    <b> {{'TASK.DueDate' | translate}}: </b> <span> {{selectedTask.DueDate | date}} </span>
 
-            </div>
-            <div class="col-md-4">
-              <button class="btn btn-primary pull-right"> {{'TASK.Members' | translate}} </button>
-            </div>
+                  <!-- <div class="col-md-12 p-0 m-0"> -->
+                    <hr>
 
-            <br>
-            <div class="col-md-12">
-              <hr>
-            </div>
-            <div class="col-md-8">
-              <h5>{{'TASK.Comments' | translate}}</h5>
-
+              <!-- <h5>{{'TASK.Comments' | translate}}</h5>
               <div class="commentSection task-scroable-content">
                 <small *ngIf="selectedTask.Comments.length == 0">
                   {{ 'TASK.NoComments' | translate}}
@@ -154,29 +139,100 @@
                 </div>
               </div>
               <br>
-
               <textarea [(ngModel)]="commentToAdd.Content" class="form-control" rows="2"></textarea>
               <br>
               <button [disabled]="!commentToAdd.Content" (click)="addNewComment()" class="btn btn-block btn-outline-primary">
-                {{'POST' | translate}} </button>
+                {{'POST' | translate}} </button> -->
             </div>
-            <div class="col-md-4">
+            <div class="col-md-12">
 
-              <h5>{{'TASK.Steps' | translate}}</h5>
-              <div class="task-scroable-content">
-                <div class="col-md-12" *ngFor="let s of selectedTask.Steps">
-                  <div class="form-check">
-                    <input class="form-check-input" id="{{s.IsDone}}" type="checkbox" [(ngModel)]="s.IsDone">
-                    <label class="form-check-label" for="{{s.IsDone}}">{{s.Content}}</label>
-                  </div>
+            
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="pills-comments-tab" data-toggle="pill" href="#pills-comments" role="tab" aria-controls="pills-comments" aria-selected="true">{{'TASK.Comments' | translate}}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="pills-steps-tab" data-toggle="pill" href="#pills-steps" role="tab" aria-controls="pills-steps" aria-selected="false">{{'TASK.Steps' | translate}}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="pills-members-tab" data-toggle="pill" href="#pills-members" role="tab" aria-controls="pills-members" aria-selected="false">{{'TASK.Members' | translate}}</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-comments" role="tabpanel" aria-labelledby="pills-comments-tab">
+
+                    <div class="commentSection task-scrollable-content">
+                      <small *ngIf="selectedTask.Comments.length == 0">
+                        {{ 'TASK.NoComments' | translate}}
+                      </small>
+                      <div class="col-md-12 p-1" *ngFor="let c of selectedTask.Comments">
+                        <div class="col-md-12 comment">
+                          <markdown> {{c.Content}} </markdown>
+                          <i class="text-right"> {{c.CreateDate | date}} <label> @{{c.CreatedBy.Username}}</label> </i>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <textarea [(ngModel)]="commentToAdd.Content" class="form-control" rows="2"></textarea>
+                    <br>
+                    <button [disabled]="!commentToAdd.Content" (click)="addNewComment()" class="btn btn-block btn-outline-primary">
+                      {{'POST' | translate}} </button> 
                 </div>
+                <div class="tab-pane fade" id="pills-steps" role="tabpanel" aria-labelledby="pills-steps-tab">
+                    <div class="task-scrollable-content">
+                        <div class="col-md-12" *ngFor="let s of selectedTask.Steps">
+                          <div class="form-check">
+                            <input class="form-check-input" id="{{s.IsDone}}" type="checkbox" [(ngModel)]="s.IsDone">
+                            <label class="form-check-label" for="{{s.IsDone}}">{{s.Content}}</label>
+                          </div>
+                        </div>
+                      </div>
+                      <br>
+                      <textarea [(ngModel)]="stepToAdd.Content" class="form-control" rows="2"></textarea>
+                      <br>
+                      <button (click)="addStep()" class="btn btn-block btn-outline-primary">
+                        {{'POST' | translate}} </button>
+                </div>
+                <div class="tab-pane fade" id="pills-members" role="tabpanel" aria-labelledby="pills-contact-members">...</div>
               </div>
-              <br>
-              <textarea [(ngModel)]="stepToAdd.Content" class="form-control" rows="2"></textarea>
-              <br>
-              <button (click)="addStep()" class="btn btn-block btn-outline-primary">
-                {{'POST' | translate}} </button>
             </div>
+
+
+
+            <!-- <div class="col-md-4">
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Home</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Steps</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+                    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                        <h5>{{'TASK.Steps' | translate}}</h5>
+                        <div class="">
+                          <div class="col-md-12" *ngFor="let s of selectedTask.Steps">
+                            <div class="form-check">
+                              <input class="form-check-input" id="{{s.IsDone}}" type="checkbox" [(ngModel)]="s.IsDone">
+                              <label class="form-check-label" for="{{s.IsDone}}">{{s.Content}}</label>
+                            </div>
+                          </div>
+                        </div>
+                        <br>
+                        <textarea [(ngModel)]="stepToAdd.Content" class="form-control" rows="2"></textarea>
+                        <br>
+                        <button (click)="addStep()" class="btn btn-block btn-outline-primary">
+                          {{'POST' | translate}} </button>
+                    </div>
+                  </div>
+              
+            </div> -->
           </div>
         </div>
       </div>
@@ -210,7 +266,6 @@
               <br>
               <label for="">{{'TASK.DueDate' | translate}}</label>
               <input type="date" id="datepicker-example" [(ngModel)]="taskToAdd.DueDate" placeholder="To" class="form-control">
-
             </div>
             <div class="col-md-6">
               <label for="">{{'TASK.Assign' | translate}}</label>
@@ -292,46 +347,8 @@
               </div>
               <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
             </div>
-            <!-- <div class="col-md-6 text-center">
-              <small class="text-muted">
-                Arrange list order by draging below containers
-              </small>
-              <br>
-              <br>
-              <div class="col-md-12" [dragula]='"bag-board-list-arrange"'>
-                <div class="bg-light p-4 mb-1 rounded text-center" *ngFor="let list of board_lists">
-                  {{list.Name}}
-                </div>
-              </div>
-              <div class="col-md-12">
-                <label data-toggle="modal" (click)="initTooltips()" data-target="#new-board-modal" class="p-3 btn btn-outline-primary btn-block mt-2 rounded  text-center">
-                  {{'LIST.CreateNew' | translate}}
-                </label>
-              </div>
-              <div class="col-md-12">
-                <label data-toggle="modal" data-target="#new-member-on-board-modal" class="p-3 btn btn-outline-primary btn-block mt-2 rounded  text-center">
-                  {{'BOARD.AddMember' | translate}}
-                </label>
-              </div>
-
-            </div>
-            <div class="col-md-6">
-              <label for="">{{'BOARD.Name' | translate}}</label>
-              <br>
-              <input type="text" [(ngModel)]="board.Name" class="form-control">
-              <br>
-              <label for="">{{'BOARD.Description' | translate}}</label>
-              <br>
-              <textarea class="form-control" [(ngModel)]="board.Description" cols="30" rows="10"></textarea>
-            </div> -->
           </div>
         </div>
-        <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-outline-danger col-md-3" data-dismiss="modal">
-            <i class="fa fa-ban pr-2"> </i> {{'GENERAL.Close' | translate}} </button>
-          <button type="button" class="btn btn-primary col-md-3" data-dismiss="modal">
-            <i class="fa fa-save pr-2"> </i> {{'GENERAL.Save' | translate}} </button>
-        </div> -->
       </div>
     </div>
   </div>
@@ -356,10 +373,7 @@
                 <input type="number" class="form-control" name="wip" id="wip" aria-describedby="helpId" placeholder="wip">
               </div>
             </div>
-
           </div>
-
-
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-danger col-md-4" data-dismiss="modal">
@@ -379,7 +393,6 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body">
-
         <div class="input-group input-group-seamless">
           <div class="input-group-prepend">
             <div class="input-group-text">

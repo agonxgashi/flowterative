@@ -55,8 +55,8 @@
 }
 
 /* ******************************* */
-.task-scroable-content {
-  height: 35vh;
+.task-scrollable-content {
+  height: 35vh !important;
   overflow-y: auto;
 }
 
@@ -70,8 +70,25 @@
   width: auto !important;
   display: inline-block;
   display: flex !important;
+  
+}
+
+.modal-body-fs{
+  max-height: 80vh;
+  
+}
+
+.modal-body-fs > div{
+  max-height: 100%;
+  overflow-y: auto;
 }
 
 ul {
   list-style: none !important;
+}
+
+.tab-pane{
+  /* border: 1px solid red; 
+  height: calc(80vh - 41px - 30px - 30px - 35px - 41px) !important;
+  overflow-y: auto; */
 }
