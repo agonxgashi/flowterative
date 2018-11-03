@@ -37,6 +37,7 @@ router.get('/details/:taskId', function(req, res) {
     
     TaskRepo.findById(taskId)
     .populate("Comments.CreatedBy", "Username  -_id")
+    .populate("Members", "Username Name Surname")
     .exec((err, task) => {
         if (err) {
             res.send(new ReturnObj(false, "TASK_NOT_FOUND", 200, null));
@@ -74,6 +75,22 @@ router.post('/add-step/:taskId', function(req, res) {
             if (err) { res.send(new ReturnObj(false, "STEP_NOT_ADDED", 200, null)) }
             else {
                 res.send(new ReturnObj(true, "STEP_ADDED", 200, result.Steps));
+            }
+        }
+    )
+})
+
+router.get('/add-member/:memberId/:taskId', function(req, res) {
+    const memberId  = req.params.memberId;
+    const taskId  = req.params.taskId;
+    TaskRepo.findByIdAndUpdate(
+        { "_id" : taskId },
+        { $push:  { "Members" : memberId }},
+        { new: true},
+        (err, result) => {
+            if (err) { res.send(new ReturnObj(false, "STEP_NOT_ADDED", 200, null)) }
+            else {
+                res.send(new ReturnObj(true, "STEP_ADDED", 200, result.Members));
             }
         }
     )

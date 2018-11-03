@@ -7,7 +7,7 @@ const BoardSchema = new Schema({
     Name: String,
     Description: String,
     Admins: { type: [mongoose.Schema.Types.ObjectId] },
-    Members: { type: [mongoose.Schema.Types.ObjectId] },
+    Members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'AppUser' }],
     Color: { type: String, default: 'primary' },
     Backlog: ListSchema,
     Lists: [ListSchema],

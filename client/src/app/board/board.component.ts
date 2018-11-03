@@ -59,9 +59,11 @@ export class BoardComponent implements OnInit, AfterViewInit {
   taskToAdd: TaskModel = new TaskModel();
   subtaskToAdd: StepModel = new StepModel();
   stepToAdd: StepModel = new StepModel();
-  memberToAdd: string;
+  memberToAddOnBoard: string;
   commentToAdd: CommentModel = new CommentModel();
   filterMyTasksOnly: Boolean;
+  boardUsers: AppUser[] = [];
+  addMemberOnBoardResponse: ReturnObject;
 
   constructor(private activatedRoute: ActivatedRoute,
     private dragulaService: DragulaService,
@@ -92,6 +94,18 @@ export class BoardComponent implements OnInit, AfterViewInit {
   // Getters
   public get board_lists(): ListModel[] {
     return this.board.Lists;
+  }
+
+  public get bord_members_not_assigned(): AppUser[] {
+    let temp: AppUser[] = [];
+
+    this.boardUsers.forEach(m => {
+      // if (this.selectedTask.Members.indexOf(m)) {
+        
+      // }
+    });
+
+    return temp;
   }
 
   filterTasksOfList(list: ListModel): TaskModel[] {
@@ -133,14 +147,20 @@ export class BoardComponent implements OnInit, AfterViewInit {
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // BOARD
 
-  addMember() {
+  addMemberOnBoard() {
+    this.addMemberOnBoardResponse = undefined;
     const data = {
-      Username: this.memberToAdd,
+      Username: this.memberToAddOnBoard,
       BoardId: this.boardId
     };
-    this.http.post('/api/boards/add-new-member', data)
+    this.http.post<ReturnObject>('/api/boards/add-new-member', data)
       .subscribe(
-        (res) => { }
+        (res) => {
+          this.addMemberOnBoardResponse = res;
+          if (this.addMemberOnBoardResponse.success) {
+            this.board.Members = res.data;
+          }
+         }
       );
   }
 
@@ -176,7 +196,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.selectedTask = undefined;
     this.http.get<ReturnObject>('/api/task/details/' + taskId)
       .subscribe(
-        (res) => { this.selectedTask = res.data; }
+        (res) => { this.selectedTask = res.data; console.log(this.selectedTask); }
       );
   }
 
@@ -230,6 +250,28 @@ export class BoardComponent implements OnInit, AfterViewInit {
             }
           }
         );
+  }
+
+  getAllBoardMembers() {
+    this.http.get<ReturnObject>('/api/boards/all-members/' + this.boardId)
+        .subscribe(
+            (res) => {
+                if (res.success) {
+                    this.boardUsers = res.data.Members;
+                }
+             }
+        );
+  }
+
+  addMemberOnTask(memberId) {
+    this.http.get<ReturnObject>(`/api/task/add-member/${memberId}/${this.selectedTask._id}`)
+        .subscribe(
+            (res) => {
+                if (res.success) {
+                    this.selectedTask.Members = res.data;
+                }
+             }
+        )
   }
 
 }

@@ -55,15 +55,22 @@ router.get('/find/:id', function (req, res) {
                 Color     : { "$first": "$Color" },
                 CreateDate: { "$first": "$CreateDate" },
                 Backlog   : { "$first": "$Backlog" },
+                Members   : { "$first": "$Members" },
                 Lists     : { $push: "$Lists" }
 
             },
         },
         { "$limit": 1 }
-    ]).exec(function (err, board) {
-        if ((err) || !board)
+    ])
+    
+    .exec(function (err, board) {
+        if ((err) || !board){
             res.send(res.status(500).send(new ReturnObj(false, "ERR_SOMETHING_WENT_WRONG", 500, null)));
-        res.json(new ReturnObj(true, "MSG_BOARD_FOUND", 200, board[0]));
+        }else{
+            Board.populate(board, {path: 'Members'}, function(err, p_boards) {
+                res.json(new ReturnObj(true, "MSG_BOARD_FOUND", 200, p_boards[0]));   
+            });
+        }
     })
 });
 
@@ -99,16 +106,43 @@ router.post('/add-list', function (req, res) {
 router.post('/add-new-member', function(req, res) {  
     const _username = req.body.Username;
     const _boardId  = req.body.BoardId;
+    console.log(_username, _boardId);
     User.findOne({Username: _username}, (err, user) => {
-        if (err || !user) { res.send(new ReturnObj(false, "ERR_LIST_NOT_ADDED", 200, null)); }
+        if (err || !user) { 
+            console.log('User not found!!!');
+            console.log(err);
+            res.send(new ReturnObj(false, "ERR_USER_DOESNT_EXIST", 200, null)); 
+        }
         else {
         Board.findByIdAndUpdate({_id: _boardId}, 
         { $addToSet: { "Members": user._id } },
+        { new: true },
         (err, result) => {
-            if (err) res.send(new ReturnObj(false, "ERR_LIST_NOT_ADDED", 200, null));
-            res.send(new ReturnObj(true, "MSG_USER_ADDED_ON_BOARD", 200, null));
+            console.log(result);
+            if (err) res.send(new ReturnObj(false, "ERR_MEMBER_NOT_ADDED", 200, null));  
         })
-    }});
+        .populate('Members', 'Name Surname Email Username')
+        .exec((err, b) => {
+        console.log(err);
+        res.send(new ReturnObj(true, "MSG_USER_ADDED_ON_BOARD", 200, b.Members));
+    });
+    }})
+    
 })
+
+router.get('/all-members/:boardId', function (req, res) {
+    const _boardId = req.params.boardId;
+    console.log(_boardId);
+    Board.findById(_boardId)
+    .populate("Members", "Username Name Surname")
+    .select("Members -_id")
+    .exec(function(err, members) {
+        if (err) {
+            res.status(500).send(new ReturnObj(false, "ERR_SOMETHING_WENT_WRONG", 500, null));
+        } else {
+            res.send(new ReturnObj(true, "MSG_MEMBERS_RETURNED", 200, members));
+        }
+    });
+});
 
 module.exports = router;

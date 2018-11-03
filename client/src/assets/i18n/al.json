@@ -9,7 +9,8 @@
   },
   "RESPONSE": {
     "ERR_INVALID_CREDENTIALS": "Kredenciale të gabuara!",
-    "ERR_LOGIN_NOCREDS": "Ju lutem mbushni fushat e kërkuara!"
+    "ERR_LOGIN_NOCREDS": "Ju lutem mbushni fushat e kërkuara!",
+    "ERR_USER_DOESNT_EXIST": "Ky shfrytëzues nuk ekziston"
   },
   "AUTH": {
     "Name": "Emri",
@@ -53,7 +54,7 @@
     "Lists": "Listat",
     "Name": "Emri i listës",
     "CreateNew": "Shto listë të re",
-    "DROP_TASKS_HERE": "Shto detyra këtu"
+    "Drop_Tasks_Here": "Zhvendos detyra këtu"
   },
   "COLOR": {
     "Red": "Kuq",

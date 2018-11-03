@@ -34,7 +34,8 @@
 
 .list-content:empty::after,
 .backlog-content:empty::before {
-  content: "Drop tasks here ";
+  content: attr(data-content);
+  /* content: "Drop tasks here "; */
   padding: 20px 0;
   display: block;
   width: 100%;
@@ -87,8 +88,13 @@ ul {
   list-style: none !important;
 }
 
-.tab-pane{
-  /* border: 1px solid red; 
-  height: calc(80vh - 41px - 30px - 30px - 35px - 41px) !important;
-  overflow-y: auto; */
+.taskMember{
+  border: 2px solid #f8f7f7;
+  background-color: #f8f7f7;
+  border-radius: 3px;
+}
+
+.boardMember{
+  border: 2px solid #f8f7f7;
+  border-radius: 3px;
 }
