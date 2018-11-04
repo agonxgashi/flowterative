@@ -50,6 +50,8 @@ import * as tippy from 'tippy.js/dist/tippy.all.min.js';
 })
 export class BoardComponent implements OnInit, AfterViewInit {
   isLoadingBoard = true;
+  isLoadingMember = false;
+  boardUpdateResponse: ReturnObject;
   boardId: string;
   board: BoardModel;
   listToCreate: ListModel = new ListModel();
@@ -66,6 +68,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
   boardUsers: AppUser[] = [];
   addMemberOnBoardResponse: ReturnObject;
   addMemberOnTaskResponse: ReturnObject;
+  taskMovingStatus: string = undefined;
 
   constructor(private activatedRoute: ActivatedRoute,
     private dragulaService: DragulaService,
@@ -98,18 +101,6 @@ export class BoardComponent implements OnInit, AfterViewInit {
     return this.board.Lists;
   }
 
-  public get bord_members_not_assigned(): AppUser[] {
-    let temp: AppUser[] = [];
-
-    this.boardUsers.forEach(m => {
-      // if (this.selectedTask.Members.indexOf(m)) {
-        
-      // }
-    });
-
-    return temp;
-  }
-
   isMemberOnTask(memberId: string): boolean {
     if (this.selectedTask.Members.findIndex((x: AppUser) => x._id === memberId) !== -1 ) {
       return false;
@@ -119,7 +110,10 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
   filterTasksOfList(list: ListModel): TaskModel[] {
     if (this.filterMyTasksOnly) {
-      return list.Tasks.filter(x => x.Members.indexOf(this.token.getUser()._id) !== -1 );
+      return list.Tasks.filter(x => {
+        return x.Members.indexOf(this.token.getUser()._id) !== -1
+        || x.Members.find((y: AppUser) => y._id === this.token.getUser()._id) !== undefined;
+      });
     } else {
       return list.Tasks;
     }
@@ -137,7 +131,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.isLoadingBoard = true;
     this.http.get<ReturnObject>(`/api/boards/find/${this.boardId}`)
       .subscribe(
-        (res) => { this.board = res.data; this.isLoadingBoard = false; },
+        (res) => { this.board = res.data; this.isLoadingBoard = false; console.log(this.board) },
         (err) => { }
       );
   }
@@ -149,14 +143,38 @@ export class BoardComponent implements OnInit, AfterViewInit {
     // origin -> Bag on which element was before being dragged
     // before -> Element, before which 'e' was dropped
     const [e, target, origin, before] = args;
-    this.moveTask(e.id, target.id);
-    // console.log('Element [', e.id, '] was dropped on bag [', target.id, '] from bag [', origin.id, '] after element [', before.id, ']');
+    this.moveTask(e.id, origin.id, target.id);
+  }
+
+  updateMovedTask(task, fromList, toList) {
+    // let tempList = this.board.Lists.find(x => x._id === fromList);
+    // tempList.Tasks.find( y => y._id === task).ListId = toList;
+
+
+    // this.board.Lists.forEach(x => {
+    //   if (x.Tasks.length !== 0 && x.Tasks.find(y => y._id === task )) {
+    //     x.Tasks.find(y => y.ListId === fromList ).ListId = toList;
+    //   }
+    // });
+    
+
+    // let tempBoard = this.board;
+    // tempBoard.Lists.forEach((tl) => {
+    //   tl.Tasks = [];
+    //   this.board.Lists.forEach((l) => {
+    //     tl.Tasks = l.Tasks.filter(x => x.ListId === tl._id);
+    //   });
+    // });
+    // console.log(this.board.Lists);
+    // console.log('TEMP:', tempBoard.Lists);
+    // // this.board = tempBoard;
   }
 
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // BOARD
 
   addMemberOnBoard() {
+    this.isLoadingMember = true;
     this.addMemberOnBoardResponse = undefined;
     const data = {
       Username: this.memberToAddOnBoard,
@@ -168,12 +186,15 @@ export class BoardComponent implements OnInit, AfterViewInit {
           this.addMemberOnBoardResponse = res;
           if (this.addMemberOnBoardResponse.success) {
             this.board.Members = res.data;
+            this.memberToAddOnBoard = '';
           }
+          this.isLoadingMember = false;
          }
       );
   }
 
   removeMemberFromBoard(memberId: string) {
+    this.isLoadingMember = true;
     this.http.get<ReturnObject>(`/api/boards/remove-member/${memberId}/${this.boardId}`)
       .subscribe(
         (res) => {
@@ -181,8 +202,24 @@ export class BoardComponent implements OnInit, AfterViewInit {
           if (this.addMemberOnBoardResponse.success) {
             this.board.Members = res.data;
           }
+          this.isLoadingMember = false;
          }
       );
+  }
+
+  updateBoard() {
+    const data = {
+      Name: this.board.Name,
+      Description: this.board.Description
+    };
+
+    this.http.post<ReturnObject>(`/api/boards/update/${this.boardId}`, data)
+        .subscribe(
+            (res) => {
+                this.boardUpdateResponse = res;
+                setTimeout(() => { this.boardUpdateResponse = undefined; }, 3000);
+            }
+        );
   }
 
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -204,16 +241,17 @@ export class BoardComponent implements OnInit, AfterViewInit {
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // TASKS
 
-  moveTask(taskId: string, listId: string) {
+  moveTask(taskId: string, origin: string, listId: string) {
     this.http.get<ReturnObject>(`/api/task/move/${taskId}/${listId}`)
       .subscribe(
         (res) => {
-          if (res.success) {
-            // this.board.Lists.slice(this.board.Lists.indexOf(task))
-          }
+          // this.updateMovedTask(taskId, origin, listId);
+          this.taskMovingStatus = res.message;
+          // To remove message from UI
+          setTimeout(() => { this.taskMovingStatus = undefined; }, 2000);
         },
         (err) => {
-          alert('Error');
+          this.taskMovingStatus = err.message;
         }
       );
   }
@@ -222,7 +260,7 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.selectedTask = undefined;
     this.http.get<ReturnObject>('/api/task/details/' + taskId)
       .subscribe(
-        (res) => { this.selectedTask = res.data; console.log(this.selectedTask); }
+        (res) => { this.selectedTask = res.data; }
       );
   }
 
@@ -289,12 +327,22 @@ export class BoardComponent implements OnInit, AfterViewInit {
         );
   }
 
+  updateTaskMembers() {
+    // this.board.Lists.find(x => x._id === this.selectedTask.ListId)
+    // .Tasks.find(x => x._id === this.selectedTask._id ).Members = this.selectedTask.Members;
+
+    this.board.Lists.forEach(x => {
+      x.Tasks.find(y => y._id === this.selectedTask._id ).Members = this.selectedTask.Members;
+    });
+  }
+
   addMemberOnTask(memberId) {
     this.http.get<ReturnObject>(`/api/task/add-member/${memberId}/${this.selectedTask._id}`)
         .subscribe(
             (res) => {
                 if (res.success) {
-                    this.selectedTask.Members = res.data;
+                    this.selectedTask = res.data;
+                    this.updateTaskMembers();
                 }
              }
         );
@@ -302,13 +350,14 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
   removeMemberFromTask(memberId) {
     this.http.get<ReturnObject>(`/api/task/remove-member/${memberId}/${this.selectedTask._id}`)
-        .subscribe(
-            (res) => {
-                if (res.success) {
-                    this.selectedTask.Members = res.data;
-                }
-             }
-        )
+      .subscribe(
+          (res) => {
+              if (res.success) {
+                  this.selectedTask = res.data;
+                  this.updateTaskMembers();
+              }
+            }
+      );
   }
 
 }

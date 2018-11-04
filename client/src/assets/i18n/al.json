@@ -10,7 +10,11 @@
   "RESPONSE": {
     "ERR_INVALID_CREDENTIALS": "Kredenciale të gabuara!",
     "ERR_LOGIN_NOCREDS": "Ju lutem mbushni fushat e kërkuara!",
-    "ERR_USER_DOESNT_EXIST": "Ky shfrytëzues nuk ekziston"
+    "ERR_USER_DOESNT_EXIST": "Ky shfrytëzues nuk ekziston",
+    "MSG_BOARD_NOT_UPDATED": "Projekti nuk u ndryshua. Provoni përsëri!",
+    "MSG_BOARD_UPDATED": "Projekti u ndryshua.",
+    "TASK_MOVED": "Detyra u lëviz",
+    "TASK_NOT_MOVED": "Operacioni dështoi. Ju lutem refreshoni faqen!"
   },
   "AUTH": {
     "Name": "Emri",

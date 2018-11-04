@@ -10,7 +10,11 @@
   "RESPONSE": {
     "ERR_INVALID_CREDENTIALS": "Invalid credentials!",
     "ERR_LOGIN_NOCREDS": "Please fill required fields!",
-    "ERR_USER_DOESNT_EXIST": "This user does not exist!"
+    "ERR_USER_DOESNT_EXIST": "This user does not exist!",
+    "MSG_BOARD_NOT_UPDATED": "Board was not updated. Please try again!",
+    "MSG_BOARD_UPDATED": "Board is updated",
+    "TASK_MOVED": "Task moved successfully",
+    "TASK_NOT_MOVED": "Task was not moved successfully. Please refresh this page!"
   },
   "AUTH": {
     "Name": "Name",

@@ -3,6 +3,7 @@ const router    = express.Router();
 const ReturnObj = require('./../../models/return-object.model');
 const TaskRepo  = require('./../../db/Task/task.repo');
 
+// • Save a new task
 router.post('/add-new', (req, res) => {
     const _task = new TaskRepo(req.body);
 
@@ -12,15 +13,17 @@ router.post('/add-new', (req, res) => {
     });
 })
 
+// • Get all tasks of a board
 router.get('/:boardId', (req, res) => {
     const boardId = req.params.projectId;
     TaskRepo.find({'projectId': boardId}, (err, tasks) => {
-        if(err) res.send(new ReturnObj(false, "ERR_TASKS_NOT_LOADED", 200, null));
+        if(err) res.send(new ReturnObj(false, "ERR_LISTS_LOADED", 200, null));
 
         res.status(200).send(new ReturnObj(true, "MSG_LISTS_FOUNDED", 200, tasks));
     })
 })
 
+// • Move a task on new list by updating listId
 router.get('/move/:taskId/:newListId', (req, res) => {
     const taskId    = req.params.taskId;
     const newListId = req.params.newListId;
@@ -32,6 +35,7 @@ router.get('/move/:taskId/:newListId', (req, res) => {
     })
 })
 
+// • Get task details
 router.get('/details/:taskId', function(req, res) {
     const taskId = req.params.taskId;
     
@@ -48,6 +52,7 @@ router.get('/details/:taskId', function(req, res) {
     });
 })
 
+// • Add a comment on task
 router.post('/comment/:taskId', function(req, res) {
     const taskId  = req.params.taskId;
     const comment = req.body;
@@ -64,6 +69,7 @@ router.post('/comment/:taskId', function(req, res) {
     )
 })
 
+// • Add a step on task
 router.post('/add-step/:taskId', function(req, res) {
     const taskId  = req.params.taskId;
     const step = req.body;
@@ -80,6 +86,8 @@ router.post('/add-step/:taskId', function(req, res) {
     )
 })
 
+
+// • Add a member on task
 router.get('/add-member/:memberId/:taskId', function(req, res) {
     const memberId  = req.params.memberId;
     const taskId  = req.params.taskId;
@@ -88,18 +96,17 @@ router.get('/add-member/:memberId/:taskId', function(req, res) {
         { $addToSet: { "Members": memberId} },
         { new: true},
         (err, result) => {
-            if (err) { res.send(new ReturnObj(false, "STEP_NOT_ADDED", 200, null)) }
-            // else {
-            //     res.send(new ReturnObj(true, "STEP_ADDED", 200, result.Members));
-            // }
+            if (err) { res.send(new ReturnObj(false, "MEMBER_NOT_ADDED", 200, null)) }
         }
     )
     .populate('Members', 'Name Surname Email Username')
     .exec((err, m) => {
-        res.send(new ReturnObj(true, "STEP_ADDED", 200, m.Members));
+        console.log(m)
+        res.send(new ReturnObj(true, "MEMBER_ADDED", 200, m));
     })
 })
 
+// • Remove a member from task
 router.get('/remove-member/:memberId/:taskId', function(req, res) {
     const memberId  = req.params.memberId;
     const taskId  = req.params.taskId;
@@ -108,15 +115,13 @@ router.get('/remove-member/:memberId/:taskId', function(req, res) {
         { $pull: { "Members": memberId} },
         { new: true},
         (err, result) => {
-            if (err) { res.send(new ReturnObj(false, "STEP_NOT_ADDED", 200, null)) }
-            // else {
-            //     res.send(new ReturnObj(true, "STEP_ADDED", 200, result.Members));
-            // }
+            if (err) { res.send(new ReturnObj(false, "MEMBER_NOT_REMOVED", 200, null)) }
         }
     )
     .populate('Members', 'Name Surname Email Username')
     .exec((err, m) => {
-        res.send(new ReturnObj(true, "STEP_ADDED", 200, m.Members));
+        console.log(m)
+        res.send(new ReturnObj(true, "MEMBER_REMOVED", 200, m));
     })
 })
 
