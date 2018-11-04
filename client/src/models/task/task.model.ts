@@ -1,5 +1,6 @@
 import { StepModel } from './step.model';
 import { CommentModel } from './comment.model';
+import { AppUser } from '../auth/appUser.model';
 
 export class TaskModel {
     _id: string;
@@ -12,5 +13,5 @@ export class TaskModel {
     DueDate: Date;
     Steps: StepModel[] = [];
     Comments: CommentModel[] = [];
-    Members: string[];
+    Members: any[];
 }

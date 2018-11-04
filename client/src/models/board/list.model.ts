@@ -5,5 +5,6 @@ export class ListModel {
     BoardId: string;
     Name: string;
     Tasks: TaskModel[] = [];
+    Wip: number;
     OrderNo: number;
 }

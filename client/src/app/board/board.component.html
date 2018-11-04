@@ -17,8 +17,7 @@
             <button type="button" class="btn btn-sm btn-light" [routerLink]="['/boards']">
               <i class="fa fa-angle-double-left pr-2"></i> {{ 'GENERAL.Back' | translate}}
             </button>
-            <button type="button"  class="btn btn-sm btn-light" data-toggle="modal"
-              data-target="#board-settings-modal">
+            <button type="button" class="btn btn-sm btn-light" data-toggle="modal" data-target="#board-settings-modal">
               {{ 'BOARD.Settings' | translate}} <i class="pl-2 fa fa-cog"></i>
             </button>
 
@@ -34,11 +33,8 @@
           <br>
         </div>
         <ul class="p-0">
-          <li class="backlog-content" 
-              attr.data-content="{{'LIST.Drop_Tasks_Here' | translate}}" 
-              [@listAnimation]="filterTasksOfList(board.Backlog).length" 
-              id="{{board.Backlog._id}}"
-              [dragula]='"bag-one"'>
+          <li class="backlog-content" attr.data-content="{{'LIST.Drop_Tasks_Here' | translate}}" [@listAnimation]="filterTasksOfList(board.Backlog).length"
+            id="{{board.Backlog._id}}" [dragula]='"bag-one"'>
             <!-- -------------------------------------------------------------------------------------------------------- -->
             <!-- FOREACH TASK OF BACKLOG -->
             <!-- -------------------------------------------------------------------------------------------------------- -->
@@ -73,16 +69,18 @@
       <!-- FOREACH LIST OF THIS BOARD -->
       <!-- -------------------------------------------------------------------------------------------------------- -->
       <div *ngFor="let list of board_lists" class="list-group col-md-3">
-        <span href="#" class="list-group-item py-2  bg-{{board.Color}}">
-          <h5 class="mb-1 text-light"> {{ list.Name }} </h5>
+        <span href="#" class="list-group-item d-flex justify-content-between bg-{{board.Color}}">
+          <h5 class="mb-1 text-light d-block"> {{ list.Name }}  </h5>
+          <label *ngIf="list.Wip != 0" class="pull-right badge badge-light"> {{ list.Tasks.length }}/{{ list.Wip }} </label>
         </span>
-        <div class="list-content" id="{{list._id}}" attr.data-content="{{'LIST.Drop_Tasks_Here' | translate}}" [@listAnimation]="filterTasksOfList(list).length" [dragula]='"bag-one"'>
+        <div class="list-content" id="{{list._id}}" attr.data-content="{{'LIST.Drop_Tasks_Here' | translate}}"
+          [@listAnimation]="filterTasksOfList(list).length" [dragula]='"bag-one"'>
           <!-- -------------------------------------------------------------------------------------------------------- -->
           <!-- FOREACH TASK OF THIS LIST -->
           <!-- -------------------------------------------------------------------------------------------------------- -->
           <div *ngFor="let task of filterTasksOfList(list)" id="{{task._id}}" data-toggle="modal" data-target="#task-details"
             (click)="getTaskDetails(task._id)" class="task clickable text-left">
-            <h6 class="mb-1"> {{task.Name}} </h6>
+            <h6 class="mb-1"> {{task.Name}}  </h6>
             <div class="d-flex justify-content-end mt-3">
               <small class="text-muted pr-1" *ngIf="task.Description">
                 <i class="fa fa-align-left "></i>
@@ -190,7 +188,7 @@
                       <div class="col-md-12 taskMember mb-2 p-3" *ngFor="let m of selectedTask.Members">
                         <img width="32" src="https://ui-avatars.com/api/?name={{m.Name}} {{m.Surname}}&size=64" class="rounded-circle mr-2">
                         {{ m.Name }} {{ m.Surname }} <i> ({{m.Username}})</i>
-                        <i class="btn btn-sm btn-primary fa fa-plus pull-right"></i>
+                        <i class="btn btn-sm btn-danger fa fa-times pull-right" (click)="removeMemberFromTask(m._id)"></i>
                         <br>
                       </div>
                     </div>
@@ -199,7 +197,7 @@
                       <div class="col-md-12 boardMember mb-2 p-3" *ngFor="let m of boardUsers">
                         <img width="32" src="https://ui-avatars.com/api/?name={{m.Name}} {{m.Surname}}&size=64" class="rounded-circle mr-2">
                         {{ m.Name }} {{ m.Surname }} <i> ({{m.Username}})</i>
-                        <i class="btn btn-sm btn-primary fa fa-plus pull-right" (click)="addMemberOnTask(m._id)"></i>
+                        <i *ngIf="isMemberOnTask(m._id)" class="btn btn-sm btn-primary fa fa-plus pull-right" (click)="addMemberOnTask(m._id)"></i>
                         <br>
                       </div>
                     </div>
@@ -279,8 +277,8 @@
         <div class="modal-body">
           <div class="row">
             <div class="nav flex-column nav-pills col-md-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <a class="nav-link active" id="v-pills-board-general-tab" data-toggle="pill" href="#v-pills-board-general" role="tab"
-                aria-controls="v-pills-board-general" aria-selected="true">{{'GENERAL.General' | translate}}</a>
+              <a class="nav-link active" id="v-pills-board-general-tab" data-toggle="pill" href="#v-pills-board-general"
+                role="tab" aria-controls="v-pills-board-general" aria-selected="true">{{'GENERAL.General' | translate}}</a>
               <a class="nav-link" id="v-pills-board-lists-tab" data-toggle="pill" href="#v-pills-board-lists" role="tab"
                 aria-controls="v-pills-board-lists" aria-selected="false">{{'LIST.Lists' | translate}}</a>
               <a class="nav-link" id="v-pills-board-members-tab" data-toggle="pill" href="#v-pills-board-members" role="tab"
@@ -321,19 +319,21 @@
               </div>
               <div class="tab-pane fade" id="v-pills-board-members" role="tabpanel" aria-labelledby="v-pills-board-members-tab">
                 <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="Add Member" [(ngModel)]="memberToAddOnBoard" (keyup.enter)="addMemberOnBoard()">
+                  <input type="text" class="form-control" placeholder="Add Member" [(ngModel)]="memberToAddOnBoard"
+                    (keyup.enter)="addMemberOnBoard()">
                   <div *ngIf="addMemberOnBoardResponse" class="text-center">
-                    <small *ngIf="!addMemberOnBoardResponse.success" class="form-text text-danger">{{ 'RESPONSE.' + addMemberOnBoardResponse.message | translate }}</small>
+                    <small *ngIf="!addMemberOnBoardResponse.success" class="form-text text-danger">{{ 'RESPONSE.' +
+                      addMemberOnBoardResponse.message | translate }}</small>
                   </div>
                 </div>
                 <br>
                 <hr>
-                  <div class="col-md-12 taskMember mb-2 p-3" *ngFor="let m of board.Members">
-                      <img width="32" src="https://ui-avatars.com/api/?name={{m.Name}} {{m.Surname}}&size=64" class="rounded-circle mr-2">
-                      {{ m.Name }} {{ m.Surname }} <i> ({{m.Username}})</i>
-                      <i class="btn btn-sm btn-primary fa fa-plus pull-right"></i>
-                      <br>
-                    </div>
+                <div class="col-md-12 taskMember mb-2 p-3" *ngFor="let m of board.Members">
+                  <img width="32" src="https://ui-avatars.com/api/?name={{m.Name}} {{m.Surname}}&size=64" class="rounded-circle mr-2">
+                  {{ m.Name }} {{ m.Surname }} <i> ({{m.Username}})</i>
+                  <i class="btn btn-sm btn-outline-danger fa fa-times pull-right" (click)="removeMemberFromBoard(m._id)"></i>
+                  <br>
+                </div>
               </div>
             </div>
           </div>
@@ -359,7 +359,7 @@
                 <label for="wip">WIP Limit
                   <i class="fa fa-question-circle" data-tippy-content="Work in progress (WIP) limits restrict the maximum amount of work items in the different stages (kanban board columns) of the workflow. The implementation of WIP limits allows you to complete single work items faster, by helping your team to focus only on current tasks."></i>
                 </label>
-                <input type="number" class="form-control" name="wip" id="wip" aria-describedby="helpId" placeholder="wip">
+                <input type="number" [(ngModel)]="listToCreate.Wip" class="form-control" name="wip" id="wip" aria-describedby="helpId" placeholder="wip">
               </div>
             </div>
           </div>

@@ -93,9 +93,11 @@ router.post('/', function (req, res) {
 router.post('/add-list', function (req, res) {
     const _listName = req.body.Name;
     const _boardId  = req.body.BoardId;
+    const _wip  = req.body.Wip;
+    console.log(req.body)
     Board.update(
         { _id: _boardId },
-        { $push: { Lists: new List({ Name: _listName, OrderNo: 0 }) } },
+        { $push: { Lists: new List({ Name: _listName, OrderNo: 0, Wip: _wip }) } },
         function (err) {
             if (err) res.send(new ReturnObj(false, "ERR_LIST_NOT_ADDED", 200, null));
             else res.send(new ReturnObj(true, "MSG_LIST_ADDED", 200, null));
@@ -109,8 +111,6 @@ router.post('/add-new-member', function(req, res) {
     console.log(_username, _boardId);
     User.findOne({Username: _username}, (err, user) => {
         if (err || !user) { 
-            console.log('User not found!!!');
-            console.log(err);
             res.send(new ReturnObj(false, "ERR_USER_DOESNT_EXIST", 200, null)); 
         }
         else {
@@ -123,12 +123,29 @@ router.post('/add-new-member', function(req, res) {
         })
         .populate('Members', 'Name Surname Email Username')
         .exec((err, b) => {
-        console.log(err);
         res.send(new ReturnObj(true, "MSG_USER_ADDED_ON_BOARD", 200, b.Members));
     });
     }})
     
 })
+
+router.get('/remove-member/:memberId/:boardId', function(req, res) {
+    console.log(req.params);
+    const _boardId  = req.params.boardId;
+    const _memberId  = req.params.memberId; 
+    Board.findByIdAndUpdate({_id: _boardId}, 
+        { $pull: { "Members": _memberId} },
+        { new: true },
+        (err, result) => {
+            console.log(result);
+            if (err) res.send(new ReturnObj(false, "ERR_MEMBER_NOT_REMOVED", 200, null));  
+        })
+        .populate('Members', 'Name Surname Email Username')
+        .exec((err, b) => {
+        res.send(new ReturnObj(true, "MSG_USER_ADDED_ON_BOARD", 200, b.Members));
+})
+})
+
 
 router.get('/all-members/:boardId', function (req, res) {
     const _boardId = req.params.boardId;

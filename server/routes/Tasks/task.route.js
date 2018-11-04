@@ -85,15 +85,39 @@ router.get('/add-member/:memberId/:taskId', function(req, res) {
     const taskId  = req.params.taskId;
     TaskRepo.findByIdAndUpdate(
         { "_id" : taskId },
-        { $push:  { "Members" : memberId }},
+        { $addToSet: { "Members": memberId} },
         { new: true},
         (err, result) => {
             if (err) { res.send(new ReturnObj(false, "STEP_NOT_ADDED", 200, null)) }
-            else {
-                res.send(new ReturnObj(true, "STEP_ADDED", 200, result.Members));
-            }
+            // else {
+            //     res.send(new ReturnObj(true, "STEP_ADDED", 200, result.Members));
+            // }
         }
     )
+    .populate('Members', 'Name Surname Email Username')
+    .exec((err, m) => {
+        res.send(new ReturnObj(true, "STEP_ADDED", 200, m.Members));
+    })
+})
+
+router.get('/remove-member/:memberId/:taskId', function(req, res) {
+    const memberId  = req.params.memberId;
+    const taskId  = req.params.taskId;
+    TaskRepo.findByIdAndUpdate(
+        { "_id" : taskId },
+        { $pull: { "Members": memberId} },
+        { new: true},
+        (err, result) => {
+            if (err) { res.send(new ReturnObj(false, "STEP_NOT_ADDED", 200, null)) }
+            // else {
+            //     res.send(new ReturnObj(true, "STEP_ADDED", 200, result.Members));
+            // }
+        }
+    )
+    .populate('Members', 'Name Surname Email Username')
+    .exec((err, m) => {
+        res.send(new ReturnObj(true, "STEP_ADDED", 200, m.Members));
+    })
 })
 
 module.exports = router;

@@ -60,10 +60,12 @@ export class BoardComponent implements OnInit, AfterViewInit {
   subtaskToAdd: StepModel = new StepModel();
   stepToAdd: StepModel = new StepModel();
   memberToAddOnBoard: string;
+  memberToAddOnTask: string;
   commentToAdd: CommentModel = new CommentModel();
   filterMyTasksOnly: Boolean;
   boardUsers: AppUser[] = [];
   addMemberOnBoardResponse: ReturnObject;
+  addMemberOnTaskResponse: ReturnObject;
 
   constructor(private activatedRoute: ActivatedRoute,
     private dragulaService: DragulaService,
@@ -106,6 +108,13 @@ export class BoardComponent implements OnInit, AfterViewInit {
     });
 
     return temp;
+  }
+
+  isMemberOnTask(memberId: string): boolean {
+    if (this.selectedTask.Members.findIndex((x: AppUser) => x._id === memberId) !== -1 ) {
+      return false;
+    }
+    return true;
   }
 
   filterTasksOfList(list: ListModel): TaskModel[] {
@@ -164,6 +173,18 @@ export class BoardComponent implements OnInit, AfterViewInit {
       );
   }
 
+  removeMemberFromBoard(memberId: string) {
+    this.http.get<ReturnObject>(`/api/boards/remove-member/${memberId}/${this.boardId}`)
+      .subscribe(
+        (res) => {
+          this.addMemberOnBoardResponse = res;
+          if (this.addMemberOnBoardResponse.success) {
+            this.board.Members = res.data;
+          }
+         }
+      );
+  }
+
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // LISTS
 
@@ -171,7 +192,12 @@ export class BoardComponent implements OnInit, AfterViewInit {
     this.listToCreate.BoardId = this.boardId;
     this.http.post<ReturnObject>('/api/boards/add-list', this.listToCreate)
       .subscribe(
-        (res) => { this.getBoardDetails(); }
+        (res) => {
+          if (res.success) {
+            this.getBoardDetails();
+            this.listToCreate = new ListModel();
+          }
+        }
       );
   }
 
@@ -265,6 +291,17 @@ export class BoardComponent implements OnInit, AfterViewInit {
 
   addMemberOnTask(memberId) {
     this.http.get<ReturnObject>(`/api/task/add-member/${memberId}/${this.selectedTask._id}`)
+        .subscribe(
+            (res) => {
+                if (res.success) {
+                    this.selectedTask.Members = res.data;
+                }
+             }
+        );
+  }
+
+  removeMemberFromTask(memberId) {
+    this.http.get<ReturnObject>(`/api/task/remove-member/${memberId}/${this.selectedTask._id}`)
         .subscribe(
             (res) => {
                 if (res.success) {
